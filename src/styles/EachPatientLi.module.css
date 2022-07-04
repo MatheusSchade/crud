@@ -1,0 +1,38 @@
+.fontList {
+  font-size: 0.9rem;
+  border-bottom: 0.1px solid var(--baseTwo);
+}
+
+.eachData {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 5px;
+}
+
+.editBtn {
+  color: var(--baseOne);
+  height: 25px;
+  width: 25px;
+  transition: 0.3s ease-in-out;
+}
+
+.editBtn:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+.deleteBtn {
+  color: var(--baseFour);
+  height: 25px;
+  width: 25px;
+  transition: 0.3s ease-in-out;
+}
+
+.deleteBtn:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}

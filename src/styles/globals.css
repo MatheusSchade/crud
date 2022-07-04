@@ -5,11 +5,11 @@
 @tailwind utilities;
 
 :root {
-  --baseOne: #393e41;
+  --baseOne: #002639;
   --baseTwo: #d3d0cb;
   --baseThree: #e7e5df;
-  --baseFour: #44bba4;
-  --baseFive: #e7bb41;
+  --baseFour: #009adf;
+  --baseFive: #172A3C;
   --contrastStrong: #fff;
   --contrastBright: #393e41;
 }
@@ -50,7 +50,7 @@ input[type=number]{
 }
 
 .containerPages {
-  width: 720px;
+  width: 90%;
   margin: 48px auto 24px auto;
 }
 
@@ -64,7 +64,6 @@ input[type=number]{
 .mainBtn {
   background-color: var(--baseOne);
   color: var(--contrastStrong);
-  /* color: var(--baseOne); */
   width: 200px;
   margin: 0 15px;
 }
@@ -72,11 +71,4 @@ input[type=number]{
 .mainBtn:hover {
   background-color: var(--baseFour);
   color: var(--contrastStrong);
-}
-
-
-@media screen and (max-width: 768px) {
-  .containerPages {
-    width: 90%;
-  }
 }
