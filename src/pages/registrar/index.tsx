@@ -104,31 +104,31 @@ const Register: React.FC = () => {
 
   return (
     isLoading
-    ? <Loader /> :
-    <Fragment>
-      <HeadContent title={`Registrar Pacientes - CRUD Medcloud`} />
-      <section>
-        <PageHeadTitle text={title} />
-        Insira abaixo os dados do paciente para registrá-lo em nosso banco de dados:
+      ? <Loader /> :
+      <Fragment>
+        <HeadContent title={`Registrar Pacientes - CRUD Medcloud`} />
+        <section>
+          <PageHeadTitle text={title} />
+          Insira abaixo os dados do paciente para registrá-lo em nosso banco de dados:
 
-        <form className='mt-3 grid grid-cols-12'>
-          <InputForm name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`col-span-8`} label={`Nome completo`} />
-          <InputForm name={`birthdate`} type={`date`} placeholder={`DD/MM/AAAA`} value={form?.birthdate} change={onChange} size={`col-span-4`} label={`Data de Nascimento`} />
-          <InputForm name={`email`} type={`email`} placeholder={`E-mail`} value={form?.email} change={onChange} size={`col-span-8`} label={`E-mail`} />
-          <InputForm name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`col-span-4`} label={`CEP`} />
-          <InputForm name={`address`} type={`text`} placeholder={`Logradouro`} value={zipCodeData?.logradouro || form?.address} change={onChange} size={`col-span-6`} label={`Logradouro`} />
-          <InputForm name={`numberAddress`} type={`text`} placeholder={`Número`} value={form?.numberAddress} change={onChange} size={`col-span-3`} label={`Número`} />
-          <InputForm name={`complement`} type={`text`} placeholder={`Complemento`} value={form?.complement} change={onChange} size={`col-span-3`} label={`Complemento`} />
-          <InputForm name={`neighborhood`} type={`text`} placeholder={`Bairro`} value={zipCodeData?.bairro || form?.neighborhood} change={onChange} size={`col-span-5`} label={`Bairro`} />
-          <InputForm name={`city`} type={`text`} placeholder={`Cidade`} value={zipCodeData?.localidade || form?.city} change={onChange} size={`col-span-5`} label={`Cidade`} />
-          <InputMasked mask={`aa`} name={`state`} type={`text`} placeholder={`UF`} value={zipCodeData?.uf || form?.state.toUpperCase()} change={onChange} size={`col-span-2`} label={`UF`} />
-        </form>
-        <div className='text-center mt-12'>
-          <FunctionButton click={clear} text={`Limpar`} />
-          <FunctionButton click={onSubmitForm} text={`Enviar`} />
-        </div>
-      </section>
-    </Fragment>
+          <form className='mt-3 grid grid-cols-12'>
+            <InputForm name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`col-span-8`} label={`Nome completo`} />
+            <InputForm name={`birthdate`} type={`date`} placeholder={`DD/MM/AAAA`} value={form?.birthdate} change={onChange} size={`col-span-4`} label={`Data de Nascimento`} />
+            <InputForm name={`email`} type={`email`} placeholder={`E-mail`} value={form?.email} change={onChange} size={`col-span-8`} label={`E-mail`} />
+            <InputForm name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`col-span-4`} label={`CEP`} />
+            <InputForm name={`address`} type={`text`} placeholder={`Logradouro`} value={zipCodeData?.logradouro || form?.address} change={onChange} size={`col-span-6`} label={`Logradouro`} />
+            <InputForm name={`numberAddress`} type={`text`} placeholder={`Número`} value={form?.numberAddress} change={onChange} size={`col-span-3`} label={`Número`} />
+            <InputForm name={`complement`} type={`text`} placeholder={`Complemento`} value={form?.complement} change={onChange} size={`col-span-3`} label={`Complemento`} />
+            <InputForm name={`neighborhood`} type={`text`} placeholder={`Bairro`} value={zipCodeData?.bairro || form?.neighborhood} change={onChange} size={`col-span-5`} label={`Bairro`} />
+            <InputForm name={`city`} type={`text`} placeholder={`Cidade`} value={zipCodeData?.localidade || form?.city} change={onChange} size={`col-span-5`} label={`Cidade`} />
+            <InputMasked mask={`aa`} name={`state`} type={`text`} placeholder={`UF`} value={zipCodeData?.uf || form?.state.toUpperCase()} change={onChange} size={`col-span-2`} label={`UF`} />
+          </form>
+          <div className='text-center mt-12'>
+            <FunctionButton click={clear} text={`Limpar`} />
+            <FunctionButton click={onSubmitForm} text={`Enviar`} />
+          </div>
+        </section>
+      </Fragment>
   )
 }
 export default Register

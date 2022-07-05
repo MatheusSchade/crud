@@ -33,8 +33,6 @@ const Manage: React.FC = () => {
     setChild(childData)
   }
 
-
-
   const returnPatient = allPatients?.map((item: Form, index: number) => {
     return (
       <EachPatientLi parentCallback={handleCallback} key={index} patient={item} />
