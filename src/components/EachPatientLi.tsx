@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import styles from "../styles/EachPatientLi.module.css"
 import { Patient } from '../types/Patient'
 import { TrashIcon, PencilAltIcon } from '@heroicons/react/outline'
@@ -6,21 +6,22 @@ import convertDate from '../services/invertDate'
 import axios from 'axios'
 import { BASE_URL } from '../constants/urls'
 
-const EachPatientLi: React.FC<{ patient: Patient}> = ({ patient}) => {
+const EachPatientLi: React.FC<{ patient: Patient, parentCallback: any }> = ({ patient, parentCallback }) => {
 
 
   const deletePatient = async () => {
-    console.log(patient?.id)
-    axios.delete(`${BASE_URL}/patient/${patient?.id}`)
+
+    await axios.delete(`${BASE_URL}/patient/${patient?.id}`)
       .then((response) => {
         console.log(response?.data)
       })
       .catch((error) => {
         console.log(error?.response?.data)
       })
+    await parentCallback(patient?.id)
   }
 
-  
+
 
 
 

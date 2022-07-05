@@ -12,10 +12,12 @@ import regexMatcher from '../../services/regexMatcher'
 import axios from 'axios'
 import ZipCode from '../../types/ZipCode'
 import { GlobalStateContext } from '../../global/GlobalStateContext'
+import Loader from '../../components/Loader'
 
 
 const Register: React.FC = () => {
   const { toaster } = useContext(GlobalStateContext)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [title] = useState<string>(`Registrar novo paciente`)
   const [zipCodeData, setZipCodeData] = useState<ZipCode | null>(null)
   const [form, onChange, clear] = useForms({
@@ -95,11 +97,14 @@ const Register: React.FC = () => {
   }
 
   useEffect(() => {
+    setIsLoading(false)
     getInfosByZipCode(form?.zipCode)
   }, [form?.zipCode?.length == 8])
 
 
   return (
+    isLoading
+    ? <Loader /> :
     <Fragment>
       <HeadContent title={`Registrar Pacientes - CRUD Medcloud`} />
       <section>
