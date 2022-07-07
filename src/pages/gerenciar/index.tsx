@@ -8,7 +8,6 @@ import styles from '../../styles/Manage.module.css'
 import { Form } from '../../types/Form'
 import RouteButton from "../../components/RouteButton"
 import Loader from '../../components/Loader'
-import Loading from '../../components/Loading'
 
 
 const Manage: React.FC = () => {
@@ -40,6 +39,7 @@ const Manage: React.FC = () => {
   })
 
   useEffect(() => {
+    setChild(null)
     getAllPatients()
   }, [child])
 

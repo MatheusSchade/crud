@@ -9,7 +9,7 @@ import InputMasked from './InputMasked'
 import useForms from '../hooks/useForms'
 import { editPatient } from "../services/editPatient"
 
-const Modal: React.FC<{ patient: Patient }> = ({ patient }) => {
+const Modal: React.FC<{ patient: Patient, eachPatientCallback: any }> = ({ patient, eachPatientCallback }) => {
   let [isOpen, setIsOpen] = useState(false)
   const [form, onChange, clear] = useForms({
     name: patient?.name,
@@ -30,6 +30,7 @@ const Modal: React.FC<{ patient: Patient }> = ({ patient }) => {
     event.preventDefault()
     closeModal()
     editPatient(form, id)
+    eachPatientCallback(id)
     clear()
   }
 
