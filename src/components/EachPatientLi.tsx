@@ -7,7 +7,7 @@ import axios from 'axios'
 import { BASE_URL } from '../constants/urls'
 import Modal from './Modal'
 
-const EachPatientLi: React.FC<{ patient: Patient, deleteCallback: any }> = ({ patient, deleteCallback }) => {
+const EachPatientLi: React.FC<{ patient: Patient, manageCallback: any }> = ({ patient, manageCallback }) => {
 
   const deletePatient = async () => {
     await axios.delete(`${BASE_URL}/patient/${patient?.id}`)
@@ -17,7 +17,7 @@ const EachPatientLi: React.FC<{ patient: Patient, deleteCallback: any }> = ({ pa
       .catch((error) => {
         console.log(error?.response?.data)
       })
-    await deleteCallback(patient?.id)
+    await manageCallback(patient?.id)
   }
 
   return (
