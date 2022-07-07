@@ -29,13 +29,13 @@ const Manage: React.FC = () => {
     setIsLoading(false)
   }
 
-  const handleCallback = (childData) => {
+  const helperDeleteCallback = (childData) => {
     setChild(childData)
   }
 
   const returnPatient = allPatients?.map((item: Form, index: number) => {
     return (
-      <EachPatientLi parentCallback={handleCallback} key={index} patient={item} />
+      <EachPatientLi deleteCallback={helperDeleteCallback} key={index} patient={item} />
     )
   })
 
