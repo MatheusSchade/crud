@@ -1,0 +1,18 @@
+.editBtn {
+  color: var(--baseOne);
+  height: 30px;
+  width: 30px;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editBtn:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+.patientsName {
+  color: var(--baseFour);
+}

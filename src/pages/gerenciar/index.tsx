@@ -8,6 +8,7 @@ import styles from '../../styles/Manage.module.css'
 import { Form } from '../../types/Form'
 import RouteButton from "../../components/RouteButton"
 import Loader from '../../components/Loader'
+import FunctionButton from '../../components/FunctionButton'
 
 
 const Manage: React.FC = () => {
@@ -72,7 +73,11 @@ const Manage: React.FC = () => {
             </div>
           }
         </section>
-
+        <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col-reverse sm:flex-row'>
+          <div className='my-2'>
+            <FunctionButton click={() => window.history.back()} text={`Voltar`} />
+          </div>
+        </div>
       </Fragment>
   )
 }

@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import styles from "../styles/Modal.module.css"
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { Patient } from '../types/Patient'
@@ -8,8 +8,11 @@ import InputForm from './InputForm'
 import InputMasked from './InputMasked'
 import useForms from '../hooks/useForms'
 import { editPatient } from "../services/editPatient"
+import { GlobalStateContext } from '../global/GlobalStateContext'
 
 const Modal: React.FC<{ patient: Patient, eachPatientCallback: any }> = ({ patient, eachPatientCallback }) => {
+  const { toaster } = useContext(GlobalStateContext)
+
   let [isOpen, setIsOpen] = useState(false)
   const [form, onChange, clear] = useForms({
     name: patient?.name,
@@ -25,11 +28,12 @@ const Modal: React.FC<{ patient: Patient, eachPatientCallback: any }> = ({ patie
     createdAt: patient?.createdAt
   })
 
-  const onSubmitForm = (event): void => {
-    const id = patient?.id
+  const onSubmitForm = async (event) => {
     event.preventDefault()
+    const id = patient?.id
     closeModal()
-    editPatient(form, id)
+    await editPatient(form, id)
+    toaster("Paciente removido com sucesso!", 3000, "success")
     eachPatientCallback(id)
     clear()
   }

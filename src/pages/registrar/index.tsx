@@ -128,6 +128,9 @@ const Register: React.FC = () => {
               <FunctionButton click={clear} text={`Limpar`} />
             </div>
             <div className='my-2'>
+              <FunctionButton click={() => window.history.back()} text={`Voltar`} />
+            </div>
+            <div className='my-2'>
               <FunctionButton click={onSubmitForm} text={`Enviar`} />
             </div>
           </div>

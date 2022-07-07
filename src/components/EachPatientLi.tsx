@@ -1,19 +1,20 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import styles from "../styles/EachPatientLi.module.css"
 import { Patient } from '../types/Patient'
-import { TrashIcon, PencilAltIcon } from '@heroicons/react/outline'
 import convertDate from '../services/invertDate'
-import axios from 'axios'
-import { BASE_URL } from '../constants/urls'
 import Modal from './Modal'
 import { deletePatient } from '../services/deletePatient'
+import ModalDelete from './ModalDelete'
+import { GlobalStateContext } from '../global/GlobalStateContext'
 
 const EachPatientLi: React.FC<{ patient: Patient, manageCallback: any }> = ({ patient, manageCallback }) => {
+  const { toaster } = useContext(GlobalStateContext)
   const [eachPatientHelper, setEachPatientHelper] = useState(null)
 
   const onClickDelete = async () => {
     await deletePatient(patient?.id)
     await manageCallback(patient?.id)
+    toaster("Paciente removido com sucesso!", 3000, "success")
   }
 
   const eachPatientCallBack = (childData) => {
@@ -45,9 +46,7 @@ const EachPatientLi: React.FC<{ patient: Patient, manageCallback: any }> = ({ pa
         </td>
         <td className={`col-span-1 flex items-center justify-evenly`}>
           <Modal eachPatientCallback={eachPatientCallBack} patient={patient} />
-          <button className={`${styles.deleteBtn}`}>
-            <TrashIcon onClick={onClickDelete} className="h-5 w-5 text-blue-500" />
-          </button>
+          <ModalDelete patient={patient} onClickDelete={onClickDelete} />
         </td>
       </tr>
 
