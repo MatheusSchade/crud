@@ -1,10 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import { GlobalStateContext } from "./GlobalStateContext"
 import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.min.css";
-import axios from "axios";
-import { BASE_URL } from "../constants/urls";
-import { Form } from "../types/Form";
 
 export const GlobalState = (props: any) => {
   const toaster = (text: string, time: number, type: string) => {

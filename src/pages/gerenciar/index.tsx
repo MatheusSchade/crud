@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState, useCallback } from 'react'
 import EachPatientLi from '../../components/EachPatientLi'
 import HeadContent from '../../components/HeadContent'
 import PageHeadTitle from '../../components/PageHeadTitle'
@@ -14,7 +14,7 @@ import FunctionButton from '../../components/FunctionButton'
 const Manage: React.FC = () => {
   const [title] = useState<string>(`Gerenciar pacientes`)
   const [allPatients, setAllPatients] = useState<Form[] | null>([])
-  const [child, setChild] = useState("")
+  const [child, setChild] = useState(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const getAllPatients = async () => {
@@ -29,8 +29,8 @@ const Manage: React.FC = () => {
     setIsLoading(false)
   }
 
-  const helperManageCallback = (childData) => {
-    setChild(childData)
+  const helperManageCallback = (data) => {
+    setChild(data)
   }
 
   const returnPatient = allPatients?.map((item: Form, index: number) => {
@@ -40,11 +40,13 @@ const Manage: React.FC = () => {
   })
 
   useEffect(() => {
-    setChild(null)
     getAllPatients()
   }, [child])
 
+  console.log(child)
+
   return (
+
     isLoading
       ? <Loader /> :
       <Fragment>

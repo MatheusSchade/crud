@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import styles from "../styles/EachPatientLi.module.css"
 import { Patient } from '../types/Patient'
-import convertDate from '../services/invertDate'
+import convertDate from '../services/convertDate'
 import Modal from './Modal'
 import { deletePatient } from '../services/deletePatient'
 import ModalDelete from './ModalDelete'
@@ -17,8 +17,8 @@ const EachPatientLi: React.FC<{ patient: Patient, manageCallback: any }> = ({ pa
     toaster("Paciente removido com sucesso!", 3000, "success")
   }
 
-  const eachPatientCallBack = (childData) => {
-    setEachPatientHelper(childData)
+  const eachPatientCallBack = (data) => {
+    setEachPatientHelper(data)
   }
 
   useEffect(() => {
