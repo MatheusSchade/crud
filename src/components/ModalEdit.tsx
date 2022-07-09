@@ -59,7 +59,7 @@ const ModalEdit: React.FC<{
 
   return (
     <Fragment>
-      <button onClick={openModal} type="button" className={`${styles.editBtn}`}>
+      <button data-bs-toggle="tooltip" title="Editar usuário" onClick={openModal} type="button" className={`${styles.editBtn}`}>
         <PencilAltIcon className="h-5 w-5" />
       </button>
 

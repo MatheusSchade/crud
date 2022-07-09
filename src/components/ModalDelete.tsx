@@ -28,7 +28,8 @@ const ModalDelete: React.FC<{ patient: Patient, helperToDelete?: any }> = ({ pat
 
   return (
     <Fragment>
-      <button onClick={openModal} className={`${styles.deleteBtn}`}>
+      <button data-bs-toggle="tooltip" title="Excluir usuário do sistema" onClick={openModal} className={`${styles.deleteBtn}`}>
+        {/* <div id="deletePatient" role="tooltip" className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">Excluir paciente do banco de dados</div> */}
         <TrashIcon className="h-5 w-5 text-blue-500" />
       </button>
 

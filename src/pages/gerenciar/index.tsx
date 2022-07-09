@@ -8,7 +8,6 @@ import styles from '../../styles/Manage.module.css'
 import { Form } from '../../types/Form'
 import RouteButton from "../../components/RouteButton"
 import Loader from '../../components/Loader'
-import FunctionButton from '../../components/FunctionButton'
 import { editPatient } from '../../services/editPatient'
 import { deletePatient } from '../../services/deletePatient'
 import ZipCode from '../../types/ZipCode'
@@ -17,13 +16,13 @@ import PaginationArea from '../../components/PaginationArea'
 
 const Manage: React.FC = () => {
   const [title] = useState<string>(`Gerenciar pacientes`)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [allPatients, setAllPatients] = useState<Form[] | null>([])
   const [idToDelete, setIdToDelete] = useState(null)
   const [formToEdit, setFormToEdit] = useState(null)
   const [zipToEdit, setZipToEdit] = useState(null)
   const [idToEdit, setIdToEdit] = useState(null)
   const [newFormToEdit, setNewFormToEdit] = useState(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [itensPerPage, setItensPerPage] = useState<number>(5)
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [typed, setTyped] = useState<string | null>(null)
@@ -42,7 +41,6 @@ const Manage: React.FC = () => {
       })
       .catch((error) => {
         console.log(error?.response)
-
       })
     setIsLoading(false)
   }
@@ -114,50 +112,50 @@ const Manage: React.FC = () => {
 
   useEffect(() => {
     filteringPatients(typed)
+    setCurrentPage(0)
   }, [typed])
 
-  useEffect(() => {
-    console.log("filteredPatients", filteredPatients)
-  }, [filteredPatients])
   return (
-    isLoading
-      ? <Loader /> :
-      <Fragment>
-        <HeadContent title={`Gerenciar Pacientes - CRUD Medcloud`} />
-        <section>
-          <PageHeadTitle text={title} />
-          {allPatients?.length > 0 ?
-            <div className='pt-3 w-full'>
-              <PaginationArea helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
-              <table>
-                <tbody>
-                  <tr className={`grid grid-cols-12 text-center ${styles.headTable}`}>
-                    <th className={`col-span-1 my-auto`}>ID</th>
-                    <th className={`col-span-3 my-auto`}>Nome</th>
-                    <th className={`col-span-1 my-auto`}>Data de nascimento</th>
-                    <th className={`col-span-3 my-auto`}>E-mail</th>
-                    <th className={`col-span-3 my-auto`}>Endereço</th>
-                    <th className={`col-span-1 my-auto`}></th>
-                  </tr>
-                  {returnPatient}
-                </tbody>
-              </table>
-              {itensPerPage >= 10 && currentItens.length >= 8 &&
-                <PaginationArea helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
-              }
-            </div> :
-            <div className={`mt-16 text-center`}>
-              <p className={`my-5 text-center`}>Não há nenhum paciente cadastrado para exibir. </p>
-              <RouteButton path='/registrar' title={`Adicionar primeiro paciente`} />
+    <div className='min-h-screen'>
+      {isLoading ? <Loader /> :
+        <Fragment>
+          <HeadContent title={`Gerenciar Pacientes - CRUD Medcloud`} />
+          <section>
+            <PageHeadTitle text={title} />
+            {allPatients?.length > 0 ?
+              <div className='pt-3 w-full'>
+                <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+                <table>
+                  <tbody>
+                    <tr className={`grid grid-cols-12 text-center ${styles.headTable}`}>
+                      <th className={`col-span-1 my-auto`}>ID</th>
+                      <th className={`col-span-3 my-auto`}>Nome</th>
+                      <th className={`col-span-1 my-auto`}>Data de nascimento</th>
+                      <th className={`col-span-3 my-auto`}>E-mail</th>
+                      <th className={`col-span-3 my-auto`}>Endereço</th>
+                      <th className={`col-span-1 my-auto`}></th>
+                    </tr>
+                    {returnPatient}
+                  </tbody>
+                </table>
+                {itensPerPage >= 10 && currentItens.length >= 8 &&
+                  <PaginationArea showFilter={false} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+                }
+              </div> :
+              <div className={`mt-16 text-center`}>
+                <p className={`my-5 text-center`}>Não há nenhum paciente cadastrado para exibir. </p>
+                <RouteButton path='/registrar' title={`Adicionar primeiro paciente`} />
+              </div>
+            }
+          </section>
+          <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
+            <div className='my-2 flex btnArea'>
+            <RouteButton path='/' title={`Voltar`} />
             </div>
-          }
-        </section>
-        <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
-          <div className='my-2 flex btnArea'>
-            <FunctionButton click={() => window.history.back()} text={`Voltar`} />
           </div>
-        </div>
-      </Fragment>
+        </Fragment>
+      }
+    </div>
   )
 }
 export default Manage

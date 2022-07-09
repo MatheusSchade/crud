@@ -52,6 +52,7 @@ input[type="number"] {
 .containerPages {
   width: 90%;
   margin: 48px auto 24px auto;
+  min-height: 68vh;
 }
 
 .pageTitle {

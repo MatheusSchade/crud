@@ -12,8 +12,9 @@ const PaginationArea: React.FC<{
   allPatients: Form[],
   pages: number,
   setCurrentPage: Dispatch<SetStateAction<number>>,
-  helperCatchTyped
-}> = ({ itensPerPage, setItensPerPage, currentPage, allPatients, pages, setCurrentPage, helperCatchTyped }) => {
+  helperCatchTyped: (data: string) => void,
+  showFilter: boolean
+}> = ({ itensPerPage, setItensPerPage, currentPage, allPatients, pages, setCurrentPage, helperCatchTyped, showFilter }) => {
   const [form, onChange, clear] = useForms({ search: "" })
 
   useEffect(() => {
@@ -22,9 +23,9 @@ const PaginationArea: React.FC<{
 
   return (
     <Fragment>
-      <div className='my-3 flex justify-between items-center px-2'>
-        <SelectPagination itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} />
-        <InputText type={`text`} value={form?.search} name={`search`} change={onChange} placeholder={`Pesquise um paciente pelo nome`} size={`w-full md:w-1/2`} />
+      <div className='my-3 md:flex justify-between items-end md:px-2'>
+        <SelectPagination itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>
+        {showFilter && <InputText type={`text`} value={form?.search} name={`search`} change={onChange} placeholder={`Pesquise um paciente pelo nome`} size={`px-0 md:mb-0 w-full md:w-1/2`} />}
         <Pagination currentPage={currentPage} itensPerPage={itensPerPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
       </div>
     </Fragment>
