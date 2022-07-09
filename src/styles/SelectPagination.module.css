@@ -1,0 +1,10 @@
+.selectPagination {
+  border-bottom: 0.1px solid var(--baseTwo);
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.selectPagination:hover {
+  background-color: var(--baseOne);
+  color: var(--contrastStrong);
+}

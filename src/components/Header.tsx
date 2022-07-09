@@ -8,21 +8,17 @@ const Header: React.FC = () => {
   const query = useRouter()
   const [route, setRoute] = useState<string | null>("")
 
-  const getActiveLink = () => {
-
-  }
-
   useEffect(() => {
     setRoute(query?.pathname)
   }, [query?.pathname])
 
 
   return (
-    <header className={`${styles.headerBase} flex items-center justify-between px-12`}>
+    <header className={`${styles.headerBase} sm:flex-row flex-col flex items-center justify-evenly sm:justify-between px-8 sm:px-12`}>
       <h1>
         <Link href="/">
           <a>
-            <h1 className={`${styles.logo}`}>CRUD Medcloud</h1>
+            <span className={`${styles.logo}`}>CRUD Medcloud</span>
           </a>
         </Link>
       </h1>

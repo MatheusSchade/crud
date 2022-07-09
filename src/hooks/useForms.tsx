@@ -1,10 +1,7 @@
 import { ChangeEventHandler, useState } from 'react'
-import { Form } from '../types/Form'
 
-const useForm = (initialState: Form): [Form, ChangeEventHandler<HTMLInputElement>, () => void] => {
+const useForm = (initialState: any): [any, ChangeEventHandler<HTMLInputElement>, () => void] => {
     const [form, setForm] = useState(initialState)
-
-    console.log("useform", form)
 
     const handleInputChange = (event: { target: { value: string; name: string } }) => {
         const { value, name } = event.target

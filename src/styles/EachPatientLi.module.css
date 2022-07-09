@@ -1,10 +1,10 @@
-.fontList {
+.fontDefault {
   font-size: 0.9rem;
   border-bottom: 0.1px solid var(--baseTwo);
 }
 
 .eachData {
-  height: 50px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;

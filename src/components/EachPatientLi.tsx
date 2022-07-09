@@ -13,7 +13,7 @@ const EachPatientLi: React.FC<{
 
   return (
     <Fragment>
-      <tr className={`grid grid-cols-12 text-center ${styles.fontList}`}>
+      <tr className={`grid grid-cols-12 text-center ${styles.fontDefault}`}>
         <td className={`col-span-1  ${styles.eachData}`}>
           <span>{patient?.id}</span>
         </td>

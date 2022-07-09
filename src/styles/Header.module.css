@@ -29,3 +29,13 @@
   transform: scale(1.05);
   color: var(--baseFour);
 }
+
+@media screen and (max-width: 640px) {
+  .headerBase {
+    height: 110px;
+  }
+
+  .logo {
+    font-size: 1.75rem;
+  }
+}

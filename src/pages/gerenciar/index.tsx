@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Fragment, useEffect, useState, useCallback } from 'react'
+import { Fragment, useEffect, useState, useLayoutEffect } from 'react'
 import EachPatientLi from '../../components/EachPatientLi'
 import HeadContent from '../../components/HeadContent'
 import PageHeadTitle from '../../components/PageHeadTitle'
@@ -12,23 +12,33 @@ import FunctionButton from '../../components/FunctionButton'
 import { editPatient } from '../../services/editPatient'
 import { deletePatient } from '../../services/deletePatient'
 import ZipCode from '../../types/ZipCode'
+import PaginationArea from '../../components/PaginationArea'
 
 
 const Manage: React.FC = () => {
   const [title] = useState<string>(`Gerenciar pacientes`)
   const [allPatients, setAllPatients] = useState<Form[] | null>([])
   const [idToDelete, setIdToDelete] = useState(null)
-
   const [formToEdit, setFormToEdit] = useState(null)
   const [zipToEdit, setZipToEdit] = useState(null)
   const [idToEdit, setIdToEdit] = useState(null)
   const [newFormToEdit, setNewFormToEdit] = useState(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [itensPerPage, setItensPerPage] = useState<number>(5)
+  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [typed, setTyped] = useState<string | null>(null)
+  const [filteredPatients, setFilteredPatients] = useState<Form[] | null>(allPatients)
+
+  const pages: number = Math.ceil(filteredPatients?.length / itensPerPage)
+  const startIndex = currentPage * itensPerPage
+  const endIndex = startIndex + itensPerPage
+  const currentItens: Form[] | null = filteredPatients.slice(startIndex, endIndex)
 
   const getAllPatients = async () => {
     await axios.get(`${BASE_URL}/patient`)
       .then((response) => {
         setAllPatients(response?.data)
+        setFilteredPatients(response?.data)
       })
       .catch((error) => {
         console.log(error?.response)
@@ -48,7 +58,11 @@ const Manage: React.FC = () => {
     setIdToDelete(idToDelete)
   }
 
-  const returnPatient = allPatients?.map((item: Form, index: number) => {
+  const helperCatchTyped = (data: string) => {
+    setTyped(data)
+  }
+
+  const returnPatient = currentItens?.map((item: Form, index: number) => {
     return (
       <EachPatientLi
         helperToDelete={helperToDelete}
@@ -57,6 +71,15 @@ const Manage: React.FC = () => {
       />
     )
   })
+
+  const filteringPatients = (typed: string) => {
+    let newPatientsList = allPatients?.filter((item) => {
+      if (item?.name?.toLowerCase()?.trim()?.includes(typed?.toLowerCase()?.trim())) {
+        return item
+      }
+    })
+    setFilteredPatients(newPatientsList)
+  }
 
   useEffect(() => {
     getAllPatients()
@@ -85,8 +108,18 @@ const Manage: React.FC = () => {
     }, 1000)
   }, [idToEdit, formToEdit, zipToEdit, idToDelete])
 
-  return (
+  useLayoutEffect(() => {
+    setCurrentPage(0)
+  }, [itensPerPage])
 
+  useEffect(() => {
+    filteringPatients(typed)
+  }, [typed])
+
+  useEffect(() => {
+    console.log("filteredPatients", filteredPatients)
+  }, [filteredPatients])
+  return (
     isLoading
       ? <Loader /> :
       <Fragment>
@@ -95,7 +128,8 @@ const Manage: React.FC = () => {
           <PageHeadTitle text={title} />
           {allPatients?.length > 0 ?
             <div className='pt-3 w-full'>
-              <table className={``}>
+              <PaginationArea helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+              <table>
                 <tbody>
                   <tr className={`grid grid-cols-12 text-center ${styles.headTable}`}>
                     <th className={`col-span-1 my-auto`}>ID</th>
@@ -108,6 +142,9 @@ const Manage: React.FC = () => {
                   {returnPatient}
                 </tbody>
               </table>
+              {itensPerPage >= 10 && currentItens.length >= 8 &&
+                <PaginationArea helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+              }
             </div> :
             <div className={`mt-16 text-center`}>
               <p className={`my-5 text-center`}>Não há nenhum paciente cadastrado para exibir. </p>
@@ -115,8 +152,8 @@ const Manage: React.FC = () => {
             </div>
           }
         </section>
-        <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col-reverse sm:flex-row'>
-          <div className='my-2'>
+        <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
+          <div className='my-2 flex btnArea'>
             <FunctionButton click={() => window.history.back()} text={`Voltar`} />
           </div>
         </div>

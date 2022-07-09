@@ -105,7 +105,7 @@ const Register: React.FC = () => {
         <HeadContent title={`Registrar Pacientes - CRUD Medcloud`} />
         <section>
           <PageHeadTitle text={title} />
-          Insira abaixo os dados do paciente para registrá-lo em nosso banco de dados:
+          <h2 className='ml-1'>Insira abaixo os dados do paciente para registrá-lo em nosso banco de dados:</h2>
 
           <form className='mt-3 grid grid-cols-12'>
             <InputForm name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`md:col-span-8 col-span-12`} label={`Nome completo`} />
@@ -119,15 +119,12 @@ const Register: React.FC = () => {
             <InputForm name={`city`} type={`text`} placeholder={`Cidade`} value={zipCodeData?.localidade || form?.city} change={onChange} size={`md:col-span-5 col-span-12`} label={`Cidade`} />
             <InputMasked mask={`aa`} name={`state`} type={`text`} placeholder={`UF`} value={zipCodeData?.uf || form?.state.toUpperCase()} change={onChange} size={`md:col-span-2 col-span-12`} label={`UF`} />
           </form>
-          <div className='text-center md:mt-12 mt-4 flex items-center justify-center flex-col-reverse md:flex-row'>
-            <div className='my-2'>
-              <FunctionButton click={() => window.history.back()} text={`Voltar`} />
-            </div>
-            <div className='my-2'>
-              <FunctionButton click={clear} text={`Limpar`} />
-            </div>
-            <div className='my-2'>
+          <div className='text-center md:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
+            <div className='my-2 flex btnArea'>
               <FunctionButton click={onSubmitForm} text={`Cadastrar`} />
+            </div>
+            <div className='my-2 flex btnArea'>
+              <FunctionButton click={() => window.history.back()} text={`Voltar`} />
             </div>
           </div>
         </section>

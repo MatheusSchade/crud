@@ -1,0 +1,20 @@
+.btnPaginationSelected,
+.btnPagination {
+  border-bottom: 0.1px solid var(--baseTwo);
+  border-radius: 4px;
+  font-weight: 600;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.btnPagination:hover {
+  background-color: var(--baseOne);
+  color: var(--contrastStrong);
+}
+
+.btnPaginationSelected {
+  background-color: var(--baseOne);
+  color: var(--contrastStrong);
+}

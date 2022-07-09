@@ -1,13 +1,13 @@
-import { ChangeEventHandler, useEffect } from "react"
+import { ChangeEventHandler } from "react"
 import getTodayDate from "../services/getTodayDate"
 import convertDate from "../services/convertDate"
 
 const InputText: React.FC<{
   size: string,
-  label: string,
-  change: ChangeEventHandler<HTMLInputElement> | null,
+  label?: string,
+  change?: ChangeEventHandler<HTMLInputElement> | null,
   value: string,
-  name: string,
+  name?: string,
   type: string,
   placeholder: string,
   inputMode?: string,
