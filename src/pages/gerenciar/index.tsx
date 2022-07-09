@@ -125,7 +125,7 @@ const Manage: React.FC = () => {
             {allPatients?.length > 0 ?
               <div className='pt-3 w-full'>
                 <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
-                <table>
+                <table className={`${styles.tableArea}`}>
                   <tbody>
                     <tr className={`grid grid-cols-12 text-center ${styles.headTable}`}>
                       <th className={`col-span-1 my-auto`}>ID</th>
@@ -150,7 +150,7 @@ const Manage: React.FC = () => {
           </section>
           <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
             <div className='my-2 flex btnArea'>
-            <RouteButton path='/' title={`Voltar`} />
+              <RouteButton path='/' title={`Voltar`} />
             </div>
           </div>
         </Fragment>

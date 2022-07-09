@@ -10,7 +10,7 @@ const Pagination: React.FC<{
   setCurrentPage: Dispatch<SetStateAction<number>>,
 }> = ({ itensPerPage, allPatients, pages, setCurrentPage, currentPage }) => {
   return (
-    <Fragment>
+    <div className="mt-3 md:mt-0">
       {(itensPerPage <= allPatients?.length) && <div>
         {Array.from(Array(pages), (item, index) => {
           return <button
@@ -25,7 +25,7 @@ const Pagination: React.FC<{
           </button>
         })}
       </div>}
-    </Fragment>
+    </div>
   )
 }
 export default Pagination

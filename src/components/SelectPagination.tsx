@@ -7,7 +7,7 @@ const SelectPagination: React.FC<{
 }> = ({ itensPerPage, setItensPerPage }) => {
   return (
     <Fragment>
-      <div>
+      <div className="md:mr-4">
         <label htmlFor="itensPerPage" className={`text-sm`}>Itens por página:</label>
         <select id='itensPerPage' value={itensPerPage}
           className={`${styles.selectPagination} ml-2 w-10 font-semibold`}

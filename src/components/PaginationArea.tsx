@@ -24,9 +24,11 @@ const PaginationArea: React.FC<{
   return (
     <Fragment>
       <div className='my-3 md:flex justify-between items-end md:px-2'>
-        <SelectPagination itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>
-        {showFilter && <InputText type={`text`} value={form?.search} name={`search`} change={onChange} placeholder={`Pesquise um paciente pelo nome`} size={`px-0 md:mb-0 w-full md:w-1/2`} />}
-        <Pagination currentPage={currentPage} itensPerPage={itensPerPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+        {showFilter && <InputText type={`text`} value={form?.search} name={`search`} change={onChange} placeholder={`Pesquise um paciente pelo nome`} size={`px-0 md:mb-0 w-auto md:w-1/3`} />}
+        <div className={`flex flex-col items-end md:flex-row md:items-center md:justify-between`}>
+          <SelectPagination itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} />
+          <Pagination currentPage={currentPage} itensPerPage={itensPerPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+        </div>
       </div>
     </Fragment>
   )
