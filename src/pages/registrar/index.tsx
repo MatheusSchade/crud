@@ -13,6 +13,7 @@ import axios from 'axios'
 import ZipCode from '../../types/ZipCode'
 import { GlobalStateContext } from '../../global/GlobalStateContext'
 import Loader from '../../components/Loader'
+import { getZipCode } from '../../services/getZipCode'
 
 
 const Register: React.FC = () => {
@@ -38,7 +39,9 @@ const Register: React.FC = () => {
     let msg: string = ""
     let isValid: boolean = false;
 
-    if (!regexMatcher(/[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$/, form?.name)) {
+    if (form?.name?.split(" ").filter((item) => {
+      return item !== "";
+    }).length < 2) {
       msg = `O campo "Nome completo" deve conter nome e sobrenome.`
     }
     else if (!form?.birthdate) {
@@ -89,15 +92,11 @@ const Register: React.FC = () => {
     setIsLoading(false)
   }, [])
 
-  const getZipCode = (event) => {
-    let zipCode = event.target.value
-    axios.get(`https://viacep.com.br/ws/${zipCode}/json/`)
-      .then((response) => {
-        setZipCodeData(response?.data)
-      }).catch((error) => {
-        console.log(error?.response?.data)
-      })
+  const zipCode = async (event) => {
+    let zipCodeData = await getZipCode(event?.target?.value)
+    setZipCodeData(zipCodeData)
   }
+
 
   return (
     isLoading
@@ -112,7 +111,7 @@ const Register: React.FC = () => {
             <InputForm name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`md:col-span-8 col-span-12`} label={`Nome completo`} />
             <InputForm name={`birthdate`} type={`date`} placeholder={`DD/MM/AAAA`} value={form?.birthdate} change={onChange} size={`md:col-span-4 col-span-12`} label={`Data de Nascimento`} />
             <InputForm name={`email`} type={`email`} placeholder={`E-mail`} value={form?.email} change={onChange} size={`md:col-span-8 col-span-12`} label={`E-mail`} />
-            <InputForm blur={getZipCode} name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`md:col-span-4 col-span-12`} label={`CEP`} />
+            <InputForm blur={zipCode} name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`md:col-span-4 col-span-12`} label={`CEP`} />
             <InputForm name={`address`} type={`text`} placeholder={`Logradouro`} value={zipCodeData?.logradouro || form?.address} change={onChange} size={`md:col-span-6 col-span-12`} label={`Logradouro`} />
             <InputForm name={`numberAddress`} type={`text`} placeholder={`Número`} value={form?.numberAddress} change={onChange} size={`md:col-span-3 col-span-5`} label={`Número`} />
             <InputForm name={`complement`} type={`text`} placeholder={`Complemento`} value={form?.complement} change={onChange} size={`md:col-span-3 col-span-7`} label={`Complemento`} />

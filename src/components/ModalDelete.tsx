@@ -1,12 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { TrashIcon, InformationCircleIcon } from '@heroicons/react/outline'
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import styles from "../styles/ModalDelete.module.css"
 import { Patient } from '../types/Patient'
 import FunctionButton from './FunctionButton'
+import { GlobalStateContext } from '../global/GlobalStateContext'
 
+const ModalDelete: React.FC<{ patient: Patient, helperToDelete?: any }> = ({ patient, helperToDelete }) => {
+  const { toaster } = useContext(GlobalStateContext)
 
-const ModalDelete: React.FC<{ onClickDelete: () => void, patient: Patient }> = ({ onClickDelete, patient }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -18,15 +20,16 @@ const ModalDelete: React.FC<{ onClickDelete: () => void, patient: Patient }> = (
   }
 
   const confirmDelete = () => {
-    onClickDelete()
+    const id = patient?.id
     closeModal()
+    helperToDelete(id)
+    toaster("Paciente removido com sucesso!", 3000, "success")
   }
 
-
   return (
-    <>
-      <button className={`${styles.deleteBtn}`}>
-        <TrashIcon onClick={openModal} className="h-5 w-5 text-blue-500" />
+    <Fragment>
+      <button onClick={openModal} className={`${styles.deleteBtn}`}>
+        <TrashIcon className="h-5 w-5 text-blue-500" />
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -79,7 +82,7 @@ const ModalDelete: React.FC<{ onClickDelete: () => void, patient: Patient }> = (
           </div>
         </Dialog>
       </Transition>
-    </>
+    </Fragment>
   )
 }
 export default ModalDelete

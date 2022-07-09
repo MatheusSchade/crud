@@ -1,30 +1,15 @@
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import styles from "../styles/EachPatientLi.module.css"
 import { Patient } from '../types/Patient'
 import convertDate from '../services/convertDate'
-import Modal from './Modal'
-import { deletePatient } from '../services/deletePatient'
+import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
-import { GlobalStateContext } from '../global/GlobalStateContext'
 
-const EachPatientLi: React.FC<{ patient: Patient, manageCallback: any }> = ({ patient, manageCallback }) => {
-  const { toaster } = useContext(GlobalStateContext)
-  const [eachPatientHelper, setEachPatientHelper] = useState(null)
-
-  const onClickDelete = async () => {
-    await deletePatient(patient?.id)
-    await manageCallback(patient?.id)
-    toaster("Paciente removido com sucesso!", 3000, "success")
-  }
-
-  const eachPatientCallBack = (data) => {
-    setEachPatientHelper(data)
-  }
-
-  useEffect(() => {
-    manageCallback(patient?.id)
-    setEachPatientHelper(null)
-  }, [eachPatientHelper])
+const EachPatientLi: React.FC<{
+  patient: Patient,
+  helperToEdit?: any,
+  helperToDelete?: any,
+}> = ({ patient, helperToEdit, helperToDelete,  }) => {
 
   return (
     <Fragment>
@@ -45,8 +30,8 @@ const EachPatientLi: React.FC<{ patient: Patient, manageCallback: any }> = ({ pa
           <span>{patient?.address}, {patient?.numberAddress} - {patient?.city}/{patient?.state} - {patient?.zipCode}</span>
         </td>
         <td className={`col-span-1 flex items-center justify-evenly`}>
-          <Modal eachPatientCallback={eachPatientCallBack} patient={patient} />
-          <ModalDelete patient={patient} onClickDelete={onClickDelete} />
+          <ModalEdit helperToEdit={helperToEdit} patient={patient}/>
+          <ModalDelete helperToDelete={helperToDelete} patient={patient} />
         </td>
       </tr>
 

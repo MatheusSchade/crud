@@ -9,12 +9,20 @@ import { Form } from '../../types/Form'
 import RouteButton from "../../components/RouteButton"
 import Loader from '../../components/Loader'
 import FunctionButton from '../../components/FunctionButton'
+import { editPatient } from '../../services/editPatient'
+import { deletePatient } from '../../services/deletePatient'
+import ZipCode from '../../types/ZipCode'
 
 
 const Manage: React.FC = () => {
   const [title] = useState<string>(`Gerenciar pacientes`)
   const [allPatients, setAllPatients] = useState<Form[] | null>([])
-  const [child, setChild] = useState(null)
+  const [idToDelete, setIdToDelete] = useState(null)
+
+  const [formToEdit, setFormToEdit] = useState(null)
+  const [zipToEdit, setZipToEdit] = useState(null)
+  const [idToEdit, setIdToEdit] = useState(null)
+  const [newFormToEdit, setNewFormToEdit] = useState(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const getAllPatients = async () => {
@@ -29,21 +37,53 @@ const Manage: React.FC = () => {
     setIsLoading(false)
   }
 
-  const helperManageCallback = (data) => {
-    setChild(data)
+  const helperToEdit = (form: Form, idToEdit: string, zipCodeData: ZipCode, newForm?: Form) => {
+    setFormToEdit(form)
+    setZipToEdit(zipCodeData)
+    setIdToEdit(idToEdit)
+    setNewFormToEdit(newForm)
+  }
+
+  const helperToDelete = (idToDelete: string) => {
+    setIdToDelete(idToDelete)
   }
 
   const returnPatient = allPatients?.map((item: Form, index: number) => {
     return (
-      <EachPatientLi manageCallback={helperManageCallback} key={index} patient={item} />
+      <EachPatientLi
+        helperToDelete={helperToDelete}
+        helperToEdit={helperToEdit}
+        key={index} patient={item}
+      />
     )
   })
 
   useEffect(() => {
     getAllPatients()
-  }, [child])
+  }, [])
 
-  console.log(child)
+  useEffect(() => {
+    idToDelete && deletePatient(idToDelete)
+    idToDelete && setIsLoading(true)
+    idToDelete && setTimeout(() => {
+      getAllPatients()
+      setIdToDelete(null)
+      setIsLoading(false)
+    }, 1000)
+  }, [idToDelete])
+
+  useEffect(() => {
+    idToEdit && editPatient(formToEdit, idToEdit, zipToEdit, newFormToEdit)
+    idToDelete && setIsLoading(true)
+    idToEdit && setTimeout(() => {
+      getAllPatients()
+      setFormToEdit(null)
+      setZipToEdit(null)
+      setIdToEdit(null)
+      setNewFormToEdit(null)
+      setIsLoading(false)
+    }, 1000)
+  }, [idToEdit])
 
   return (
 
