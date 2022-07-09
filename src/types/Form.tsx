@@ -10,5 +10,4 @@ export interface Form {
     city: string
     state: string
     createdAt?: string
-    // id?: string
 }

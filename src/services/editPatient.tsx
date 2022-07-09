@@ -3,7 +3,7 @@ import { BASE_URL } from "../constants/urls"
 import { Form } from "../types/Form"
 import ZipCode from "../types/ZipCode"
 
-export const editPatient = async (form: Form, id: string, zipCodeData: ZipCode, newFormToEdit: Form) => {
+export const editPatient = async (form: Form, id: string, zipCodeData: ZipCode) => {
   // const name: string = newFormToEdit?.name || form?.name
   // const birthdate: string = newFormToEdit?.birthdate || form?.birthdate
   // const email: string = newFormToEdit?.email || form?.email

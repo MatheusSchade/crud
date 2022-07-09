@@ -73,7 +73,7 @@ const Manage: React.FC = () => {
   }, [idToDelete])
 
   useEffect(() => {
-    idToEdit && editPatient(formToEdit, idToEdit, zipToEdit, newFormToEdit)
+    idToEdit && editPatient(formToEdit, idToEdit, zipToEdit)
     idToDelete && setIsLoading(true)
     idToEdit && setTimeout(() => {
       getAllPatients()
@@ -83,7 +83,7 @@ const Manage: React.FC = () => {
       setNewFormToEdit(null)
       setIsLoading(false)
     }, 1000)
-  }, [idToEdit])
+  }, [idToEdit, formToEdit, zipToEdit, idToDelete])
 
   return (
 
