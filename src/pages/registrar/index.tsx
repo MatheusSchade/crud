@@ -45,33 +45,36 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
     if (form?.name?.split(" ").filter((item) => {
       return item !== "";
     }).length < 2) {
-      msg = `O campo "Nome completo" deve conter nome e sobrenome.`
-    }
-    else if (!form?.birthdate) {
+      msg = `O campo "nome completo" deve conter nome e sobrenome.`
+    } else if (form?.name?.length > 30) {
+      msg = `O campo "nome completo" aceita um máximo de 30 caracteres.`
+    } else if (!form?.birthdate) {
       msg = "Selecione uma data de nascimento para prosseguir."
-    }
-    else if (!regexMatcher(/\S+@\S+\.\S+/, form?.email)) {
+    } else if (!regexMatcher(/\S+@\S+\.\S+/, form?.email)) {
       msg = `Digite um e-mail válido para prosseguir.`
-    }
-    else if (!regexMatcher(/^[0-9]{8}$/, form?.zipCode)) {
+    } else if (form?.email?.length > 40) {
+      msg = `O campo "email" aceita um máximo de 40 caracteres.`
+    } else if (!regexMatcher(/^[0-9]{8}$/, form?.zipCode)) {
       msg = `Digite um CEP válido para prosseguir.`
-    }
-    else if (!zipCodeData?.logradouro && form?.address?.length < 2) {
+    } else if (!zipCodeData?.logradouro && form?.address?.length < 2) {
       msg = `Digite um logradouro válido para prosseguir.`
-    }
-    else if (!form?.numberAddress) {
+    } else if (form?.address?.length > 30) {
+      msg = `O campo "Logradouro" aceita um máximo de 30 caracteres.`
+    } else if (!form?.numberAddress) {
       msg = `Digite o número da residência para prosseguir.`
-    }
-    else if (!zipCodeData?.bairro && form?.neighborhood?.length < 2) {
+    } else if (form?.numberAddress?.length > 6) {
+      msg = `O campo "Número" aceita um máximo de 6 caracteres.`
+    } else if (!zipCodeData?.bairro && form?.neighborhood?.length < 2) {
       msg = `Digite o bairro para prosseguir.`
-    }
-    else if (!zipCodeData?.localidade && form?.city?.length < 2) {
+    } else if (form?.neighborhood?.length > 20) {
+      msg = `O campo "Bairro" aceita um máximo de 20 caracteres.`
+    } else if (!zipCodeData?.localidade && form?.city?.length < 2) {
       msg = `Digite uma cidade válida para prosseguir.`
-    }
-    else if (!zipCodeData?.uf && !checkState(brazilianStates, form?.state?.toUpperCase())) {
+    } else if (form?.city?.length > 20) {
+      msg = `O campo "Cidade" aceita um máximo de 20 caracteres.`
+    } else if (!zipCodeData?.uf && !checkState(brazilianStates, form?.state?.toUpperCase())) {
       msg = "Selecione uma UF (estado) válida."
-    }
-    else {
+    } else {
       isValid = true
     }
 

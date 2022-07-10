@@ -14,5 +14,6 @@
 }
 
 .patientsName {
-  color: var(--baseFour);
+word-break: break-all;
 }
+

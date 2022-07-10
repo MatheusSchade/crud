@@ -21,7 +21,6 @@ const EachPatientListMobile: React.FC<EachPatientLiTp> = ({ helperToDelete, help
           {isAccordionOpen ? <MinusSmIcon className="h-5 w-5" /> : <PlusSmIcon className="h-5 w-5" />}
         </div>
       </button>
-
       <div className={`${styles.isOpenArea} relative`}>
         <div className={isAccordionOpen ? `${styles.fadeIn}` : `${styles.fadeOut}`}>
           <hr />
@@ -39,10 +38,8 @@ const EachPatientListMobile: React.FC<EachPatientLiTp> = ({ helperToDelete, help
               <ModalDelete setIsAccordionOpen={setIsAccordionOpen} helperToDelete={helperToDelete} patient={patient} />
             </div>
           </div>
-
         </div>
       </div>
-
     </li>
   )
 }

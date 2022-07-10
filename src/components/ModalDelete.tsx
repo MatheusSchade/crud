@@ -61,7 +61,7 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete, setIsAc
                   </Dialog.Title>
                   <div className="mt-5">
                     <p className="mb-6 md:mx-6 mx-2 text-lg text-center font-bold">
-                      Tem certeza que deseja excluir o paciente <strong className={`text-blue-500`}>{patient?.name}</strong>?
+                      Tem certeza que deseja excluir o paciente <strong className={`text-blue-500 ${styles.patientsName}`}>{patient?.name} </strong>?
                     </p>
                     <p className='text-center mb-16 md:px-12 px-0'>Uma vez confirmado, não será possível reverter esta ação!</p>
                   </div>
