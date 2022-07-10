@@ -18,7 +18,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <GlobalState>
       <Header />
-      <main className='containerPages'>
+      <main className='containerPages outline-none'>
         <Component size={size} {...pageProps} />
         <TopButton />
       </main>

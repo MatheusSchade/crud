@@ -27,6 +27,7 @@
   font-family: "Open-Sans-Bold", sans-serif;
   color: var(--baseOne);
   text-align: left;
+  word-break: break-all;
 }
 
 .isOpenArea {
@@ -46,7 +47,6 @@
   width: 100%;
   height: auto;
   transition: width 0.75s, height 0.75s, opacity 0.75s 0.75s;
-  margin-top: 15xp;
 }
 
 .show {

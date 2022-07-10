@@ -10,4 +10,5 @@ export default interface InputTextTp {
   placeholder: string,
   inputMode?: string,
   blur?: any
+  maxLength?: number
 }

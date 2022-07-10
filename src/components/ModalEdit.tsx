@@ -14,7 +14,7 @@ import { brazilianStates } from '../constants/brazilianStates'
 import checkState from '../services/checkState'
 import ModalEditTp from '../types/ModalEditTp'
 
-const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit }) => {
+const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordionOpen }) => {
   const { toaster } = useContext(GlobalStateContext)
   const [zipCodeData, setZipCodeData] = useState<ZipCode | null>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -85,6 +85,7 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit }) => {
       closeModal()
       toaster("Paciente alterado com sucesso!", 3000, "success")
       clear()
+      setIsAccordionOpen(false)
     }
   }
 

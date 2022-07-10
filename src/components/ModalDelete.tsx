@@ -5,7 +5,7 @@ import styles from "../styles/ModalDelete.module.css"
 import FunctionButton from './FunctionButton'
 import ModalDeleteTp from '../types/ModalDeleteTp'
 
-const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
+const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete, setIsAccordionOpen }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -20,6 +20,7 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
     const id = patient?.id
     closeModal()
     helperToDelete(id)
+    setIsAccordionOpen(false)
   }
 
   return (
@@ -27,7 +28,6 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
       <button data-bs-toggle="tooltip" title="Excluir usuário do sistema" onClick={openModal} className={`${styles.deleteBtn}`}>
         <TrashIcon className="h-5 w-5 text-blue-500" />
       </button>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -41,7 +41,6 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -75,7 +74,6 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
                       <FunctionButton click={confirmDelete} text='Confirmar' />
                     </div>
                   </div>
-
                 </Dialog.Panel>
               </Transition.Child>
             </div>
