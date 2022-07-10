@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, FocusEvent } from "react";
 
 export default interface InputTextTp {
   size: string,
@@ -11,5 +11,5 @@ export default interface InputTextTp {
   inputMode?: string,
   blur?: any
   maxLength?: number
-  onFocus?: string
+  onFocus?: any
 }
