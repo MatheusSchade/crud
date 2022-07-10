@@ -63,6 +63,12 @@ input[type="number"] {
   font-size: 2rem;
 }
 
+.logo {
+  font-size: 2rem;
+  color: var(--contrastStrong);
+  user-select: none;
+}
+
 /* buttons */
 
 .mainBtn {
@@ -93,6 +99,10 @@ input[type="number"] {
 
 @media screen and (max-width: 640px) {
   .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .logo {
     font-size: 1.75rem;
   }
 

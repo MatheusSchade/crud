@@ -11,5 +11,4 @@ export default interface InputTextTp {
   inputMode?: string,
   blur?: any
   maxLength?: number
-  onFocus?: any
 }

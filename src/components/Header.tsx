@@ -17,7 +17,7 @@ const Header: React.FC = () => {
       <h1>
         <Link href="/">
           <a>
-            <span className={`${styles.logo}`}>CRUD Medcloud</span>
+            <span className={`logo`}>CRUD Medcloud</span>
           </a>
         </Link>
       </h1>
