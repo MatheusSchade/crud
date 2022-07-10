@@ -1,14 +1,7 @@
-import { Dispatch, Fragment, SetStateAction } from "react"
-import { Form } from "../types/Form"
 import styles from "../styles/Pagination.module.css"
+import PaginationTp from "../types/PaginationTp"
 
-const Pagination: React.FC<{
-  itensPerPage: number,
-  allPatients: Form[],
-  pages: number,
-  currentPage: number,
-  setCurrentPage: Dispatch<SetStateAction<number>>,
-}> = ({ itensPerPage, allPatients, pages, setCurrentPage, currentPage }) => {
+const Pagination: React.FC<PaginationTp> = ({ itensPerPage, allPatients, pages, setCurrentPage, currentPage }) => {
   return (
     <div className="mt-3 md:mt-0">
       {(itensPerPage <= allPatients?.length) && <div>

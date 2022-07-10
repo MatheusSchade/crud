@@ -1,7 +1,7 @@
-import styles from "../styles/PageHeadTitle.module.css"
 import { Fragment } from "react"
+import PageHeadTitleTp from "../types/PageHeadTitleTp"
 
-const PageHeadTitle: React.FC<{ text: string }> = ({ text }) => {
+const PageHeadTitle: React.FC<PageHeadTitleTp> = ({ text }) => {
   return (
     <Fragment>
       <h1 className={`text-center font-bold pageTitle mb-3`}>{text}</h1>

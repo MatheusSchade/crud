@@ -1,7 +1,7 @@
-import styles from "../styles/RouteButton.module.css"
 import Link from "next/link"
+import RouteButtonTp from "../types/RouteButtonTp"
 
-const RouteButton: React.FC<{ path: string, title: string }> = ({ path, title }) => {
+const RouteButton: React.FC<RouteButtonTp> = ({ path, title }) => {
   return (
     <Link href={path}>
       <a className="w-full">

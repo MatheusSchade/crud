@@ -19,12 +19,13 @@ const PaginationArea: React.FC<{
 
   useEffect(() => {
     helperCatchTyped(form?.search)
-  }, [form?.search])
+  }, [form?.search, helperCatchTyped])
 
   return (
     <Fragment>
       <div className='my-3 md:flex justify-between items-end md:px-2'>
-        {showFilter && <InputText type={`text`} value={form?.search} name={`search`} change={onChange} placeholder={`Pesquise um paciente pelo nome`} size={`px-0 md:mb-0 w-auto md:w-1/3`} />}
+        {showFilter &&
+          <InputText type={`text`} value={form?.search} name={`search`} change={onChange} placeholder={`Pesquise um paciente pelo nome`} size={`px-0 md:mb-0 w-auto md:w-1/3`} />}
         <div className={`flex flex-col items-end md:flex-row md:items-center md:justify-between`}>
           <SelectPagination itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} />
           <Pagination currentPage={currentPage} itensPerPage={itensPerPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />

@@ -12,7 +12,6 @@ const Header: React.FC = () => {
     setRoute(query?.pathname)
   }, [query?.pathname])
 
-
   return (
     <header className={`${styles.headerBase} sm:flex-row flex-col flex items-center justify-evenly sm:justify-between px-8 sm:px-12`}>
       <h1>

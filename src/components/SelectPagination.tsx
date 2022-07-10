@@ -1,10 +1,8 @@
-import { Dispatch, Fragment, SetStateAction } from "react"
+import { Fragment } from "react"
 import styles from "../styles/SelectPagination.module.css"
+import SelectPaginationTp from "../types/SelectPaginationTp"
 
-const SelectPagination: React.FC<{
-  itensPerPage: number,
-  setItensPerPage: Dispatch<SetStateAction<string | number | readonly string[]>>
-}> = ({ itensPerPage, setItensPerPage }) => {
+const SelectPagination: React.FC<SelectPaginationTp> = ({ itensPerPage, setItensPerPage }) => {
   return (
     <Fragment>
       <div className="md:mr-4">

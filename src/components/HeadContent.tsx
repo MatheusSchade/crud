@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { Fragment } from 'react'
+import HeadContentTp from '../types/HeadContentTp'
 
-
-const HeadContent: React.FC<{ title: string }> = ({ title }) => {
+const HeadContent: React.FC<HeadContentTp> = ({ title }) => {
   return (
     <Fragment>
       <Head>

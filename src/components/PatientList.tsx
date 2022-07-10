@@ -1,15 +1,10 @@
 import { Fragment } from "react"
 import styles from "../styles/PatientList.module.css"
 import { Form } from "../types/Form"
-import ZipCode from "../types/ZipCode"
+import PatientListTp from "../types/PatientListTp"
 import EachPatientLi from "./EachPatientLi"
 
-const PatientList: React.FC<{
-  currentItens: Form[] | null,
-  helperToDelete: (idToDelete: string) => void,
-  helperToEdit: (form: Form, idToEdit: string, zipCodeData: ZipCode, newForm?: Form) => void
-}> = ({ currentItens, helperToDelete, helperToEdit }) => {
-
+const PatientList: React.FC<PatientListTp> = ({ currentItens, helperToDelete, helperToEdit }) => {
   const returnPatient = currentItens?.map((item: Form, index: number) => {
     return (
       <EachPatientLi

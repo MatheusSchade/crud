@@ -2,7 +2,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useContext, useState } from 'react'
 import styles from "../styles/Modal.module.css"
 import { PencilAltIcon } from '@heroicons/react/outline'
-import { Patient } from '../types/Patient'
 import FunctionButton from './FunctionButton'
 import InputForm from './InputForm'
 import InputMasked from './InputMasked'
@@ -13,11 +12,12 @@ import { getZipCode } from '../services/getZipCode'
 import regexMatcher from '../services/regexMatcher'
 import { brazilianStates } from '../constants/brazilianStates'
 import checkState from '../services/checkState'
+import ModalEditTp from '../types/ModalEditTp'
 
-const ModalEdit: React.FC<{ patient: Patient, manageCallback?: any, helperToEdit?: any }> = ({ patient, helperToEdit }) => {
+const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit }) => {
   const { toaster } = useContext(GlobalStateContext)
   const [zipCodeData, setZipCodeData] = useState<ZipCode | null>(null)
-  let [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const [form, onChange, clear] = useForms({
     name: patient?.name,

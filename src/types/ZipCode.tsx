@@ -1,7 +1,7 @@
 export default interface ZipCode {
   bairro: string
   cep: string
-  complemento: string
+  complemento: string | null
   ddd: string
   gia: string
   ibge: string

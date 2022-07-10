@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { Fragment, useEffect, useState, useLayoutEffect } from 'react'
-import EachPatientLi from '../../components/EachPatientLi'
 import HeadContent from '../../components/HeadContent'
 import PageHeadTitle from '../../components/PageHeadTitle'
 import { BASE_URL } from '../../constants/urls'
-import styles from '../../styles/Manage.module.css'
 import { Form } from '../../types/Form'
 import RouteButton from "../../components/RouteButton"
 import Loader from '../../components/Loader'
@@ -16,7 +14,6 @@ import Size from '../../types/Size'
 import PatientListMobile from '../../components/PatientListMobile'
 import PatientList from '../../components/PatientList'
 import NoRegistredPatients from '../../components/NoRegistredPatients'
-
 
 const Manage: React.FC<{ size: Size }> = ({ size }) => {
   const [title] = useState<string>(`Gerenciar pacientes`)
@@ -31,7 +28,6 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [typed, setTyped] = useState<string | null>(null)
   const [filteredPatients, setFilteredPatients] = useState<Form[] | null>(allPatients)
-  const [aa, setAa] = useState<null | Form[]>(null)
 
   const pages: number = Math.ceil(filteredPatients?.length / itensPerPage)
   const startIndex = currentPage * itensPerPage
@@ -63,15 +59,6 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
 
   const helperCatchTyped = (data: string) => {
     setTyped(data)
-  }
-
-  const filteringPatients = (typed: string) => {
-    let newPatientsList = allPatients?.filter((item) => {
-      if (item?.name?.toLowerCase()?.trim()?.includes(typed?.toLowerCase()?.trim())) {
-        return item
-      }
-    })
-    setFilteredPatients(newPatientsList)
   }
 
   useEffect(() => {
@@ -106,9 +93,18 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
   }, [itensPerPage])
 
   useEffect(() => {
+    const filteringPatients = (typed: string) => {
+      let newPatientsList = allPatients?.filter((item) => {
+        if (item?.name?.toLowerCase()?.trim()?.includes(typed?.toLowerCase()?.trim())) {
+          return item
+        }
+      })
+      setFilteredPatients(newPatientsList)
+    }
+
     filteringPatients(typed)
     setCurrentPage(0)
-  }, [typed])
+  }, [typed, allPatients])
 
   return (
     <div className='min-h-screen'>

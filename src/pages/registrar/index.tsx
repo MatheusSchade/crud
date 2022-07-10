@@ -88,15 +88,14 @@ const Register: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
-
   const zipCode = async (event) => {
     let zipCodeData = await getZipCode(event?.target?.value)
     setZipCodeData(zipCodeData)
   }
 
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   return (
     <div className='min-h-screen'>

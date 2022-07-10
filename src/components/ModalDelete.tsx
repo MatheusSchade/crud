@@ -2,13 +2,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { TrashIcon, InformationCircleIcon } from '@heroicons/react/outline'
 import { Fragment, useContext, useState } from 'react'
 import styles from "../styles/ModalDelete.module.css"
-import { Patient } from '../types/Patient'
 import FunctionButton from './FunctionButton'
 import { GlobalStateContext } from '../global/GlobalStateContext'
+import ModalDeleteTp from '../types/ModalDeleteTp'
 
-const ModalDelete: React.FC<{ patient: Patient, helperToDelete?: any }> = ({ patient, helperToDelete }) => {
+const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
   const { toaster } = useContext(GlobalStateContext)
-
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {

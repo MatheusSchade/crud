@@ -1,16 +1,12 @@
 import { Fragment } from 'react'
 import styles from "../styles/EachPatientLi.module.css"
-import { Patient } from '../types/Patient'
 import convertDate from '../services/convertDate'
 import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
+import EachPatientLiTp from '../types/EachPatientLiTp'
 
-const EachPatientLi: React.FC<{
-  patient: Patient,
-  helperToEdit?: any,
-  helperToDelete?: (idToDelete: string) => void,
-}> = ({ patient, helperToEdit, helperToDelete, }) => {
 
+const EachPatientLi: React.FC<EachPatientLiTp> = ({ patient, helperToEdit, helperToDelete }) => {
   return (
     <Fragment>
       <tr className={`grid grid-cols-12 text-center ${styles.fontDefault}`}>

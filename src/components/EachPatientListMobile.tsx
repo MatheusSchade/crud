@@ -1,25 +1,17 @@
 import { useState } from "react"
-import { Form } from "../types/Form"
-import ZipCode from "../types/ZipCode"
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
 import styles from "../styles/EachPatientListMobile.module.css"
-import { Patient } from "../types/Patient"
 import convertDate from "../services/convertDate"
 import ModalEdit from "./ModalEdit"
 import ModalDelete from "./ModalDelete"
+import EachPatientLiTp from "../types/EachPatientLiTp"
 
-const EachPatientListMobile: React.FC<{
-  helperToDelete: (idToDelete: string) => void,
-  helperToEdit: (form: Form, idToEdit: string, zipCodeData: ZipCode, newForm?: Form) => void,
-  patient: Patient
-}> = ({ helperToDelete, helperToEdit, patient }) => {
+const EachPatientListMobile: React.FC<EachPatientLiTp> = ({ helperToDelete, helperToEdit, patient }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const invertAccordion = () => {
     isOpen ? setIsOpen(false) : setIsOpen(true)
   }
-
-
 
   return (
     <li className={`list-none ${styles.eachItemCard}`}>
