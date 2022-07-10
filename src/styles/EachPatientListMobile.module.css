@@ -1,0 +1,65 @@
+.eachItemCard {
+  width: 100%;
+  border-radius: 4px;
+  border: 0.5px solid var(--baseOne);
+  margin: 10px auto;
+  cursor: pointer;
+  box-shadow: var(--boxShadow1);
+  padding: 5px 0;
+  font-size: 0.85rem;
+  outline: 0;
+  word-wrap: break-word;
+}
+
+.accordionButton {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.titleAccordion {
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: "Open-Sans-Bold", sans-serif;
+  color: var(--baseOne);
+  text-align: left;
+}
+
+.isOpenArea {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.fadeOut {
+  opacity: 0;
+  width: 0;
+  height: 0px;
+  transition: width 0.2s 0.2s, height 0.2s 0.2s, opacity 0.2s;
+}
+
+.fadeIn {
+  opacity: 1;
+  width: 100%;
+  height: auto;
+  transition: width 0.75s, height 0.75s, opacity 0.75s 0.75s;
+  margin-top: 15xp;
+}
+
+.show {
+  width: 100%;
+  height: auto;
+  transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+}
+
+.dontShow {
+  display: none;
+}
+
+.actionsBtnArea {
+  bottom: -4px;
+  right: -4px;
+}

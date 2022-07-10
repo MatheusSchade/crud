@@ -29,7 +29,6 @@ const ModalDelete: React.FC<{ patient: Patient, helperToDelete?: any }> = ({ pat
   return (
     <Fragment>
       <button data-bs-toggle="tooltip" title="Excluir usuário do sistema" onClick={openModal} className={`${styles.deleteBtn}`}>
-        {/* <div id="deletePatient" role="tooltip" className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">Excluir paciente do banco de dados</div> */}
         <TrashIcon className="h-5 w-5 text-blue-500" />
       </button>
 
@@ -58,23 +57,27 @@ const ModalDelete: React.FC<{ patient: Patient, helperToDelete?: any }> = ({ pat
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     <InformationCircleIcon className="h-20 w-20 mx-auto text-blue-500" />
                   </Dialog.Title>
-                  <div className="mt-5 ">
-                    <p className="mb-6 mx-6 text-lg text-center font-bold">
+                  <div className="mt-5">
+                    <p className="mb-6 md:mx-6 mx-2 text-lg text-center font-bold">
                       Tem certeza que deseja excluir o paciente <strong className={`text-blue-500`}>{patient?.name}</strong>?
                     </p>
-                    <p className='text-center mb-16 px-12'>Uma vez confirmado, não será possível reverter esta ação!</p>
+                    <p className='text-center mb-16 md:px-12 px-0'>Uma vez confirmado, não será possível reverter esta ação!</p>
                   </div>
 
-                  <div className="mt-5 flex items-center justify-center">
-                    <FunctionButton click={closeModal} text='Voltar' />
-                    <FunctionButton click={confirmDelete} text='Confirmar' />
+                  <div className="mt-5 flex flex-col sm:flex-row items-center justify-center">
+                    <div className='w-full md:w-1/2 flex mx-auto my-1 md:my-0'>
+                      <FunctionButton click={closeModal} text='Voltar' />
+                    </div>
+                    <div className='w-full md:w-1/2 flex mx-auto my-1 md:my-0'>
+                      <FunctionButton click={confirmDelete} text='Confirmar' />
+                    </div>
                   </div>
 
                 </Dialog.Panel>

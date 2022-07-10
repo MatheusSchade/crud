@@ -5,7 +5,7 @@ const FunctionButton: React.FC<{
   click?: (event: { preventDefault: () => void } | (() => void)) => void 
 }> = ({ text, click }) => {
     return (
-      <button onClick={click} className={`mainBtn font-semibold py-2 px-4 border border-gray-400 rounded shadow`}>
+      <button onClick={click} className={`text-center mainBtn font-semibold py-2 px-4 border border-gray-400 rounded shadow`}>
         {text}
       </button>
     )

@@ -6,7 +6,7 @@ const Home: React.FC = () => {
     <div>
       <HeadContent title={`Home - CRUD Medcloud`} />
       <h1 className='text-center mt-24 pageTitle font-bold'>
-        Bem vindo ao CRUD Medcloud
+        Bem vindo(a) ao CRUD Medcloud
       </h1>
       <h2 className='text-center mt-12 sm:w-1/2 w-full mx-auto text-xl font-semibold'>
         Registre um novo paciente no banco de dados ou visualize a lista com todos os clientes já registrados.</h2>

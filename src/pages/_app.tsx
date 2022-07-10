@@ -6,17 +6,19 @@ import NProgress from 'nprogress'
 import Header from '../components/Header'
 import { GlobalState } from "../global/GlobalState"
 import Footer from '../components/Footer'
+import { useWindowSize } from '../hooks/useWindowResize'
 
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.start())
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const size = useWindowSize()
   return (
     <GlobalState>
       <Header />
       <main className='containerPages'>
-        <Component {...pageProps} />
+        <Component size={size} {...pageProps} />
       </main>
       <Footer />
     </GlobalState>

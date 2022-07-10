@@ -12,6 +12,8 @@
   --baseFive: #172a3c;
   --contrastStrong: #fff;
   --contrastBright: #393e41;
+  --btnPrimary: #3B82F6;
+  --boxShadow1:  0px 2px 2px 0px rgba(88, 88, 88, 0.5);
 }
 
 html,
@@ -56,7 +58,7 @@ input[type="number"] {
 }
 
 .pageTitle {
-  color: var(--contrastBright);
+  color: var(--baseOne);
   font-size: 2rem;
 }
 
@@ -70,11 +72,17 @@ input[type="number"] {
 }
 
 .mainBtn:hover {
-  background-color: var(--baseFour);
+  background-color: var(--btnPrimary);
   color: var(--contrastStrong);
 }
 
 /* responsive */
+
+@media screen and (max-width: 768px) {
+  .mainBtn {
+    margin: 0 5px;
+  }
+}
 
 @media screen and (max-width: 640px) {
   .pageTitle {

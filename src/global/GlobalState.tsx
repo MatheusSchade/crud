@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.min.css";
 
 export const GlobalState = (props: any) => {
+
   const toaster = (text: string, time: number, type: string) => {
     const obj = {
       error: () => {
@@ -59,10 +60,7 @@ export const GlobalState = (props: any) => {
     obj[type]();
   };
 
-
-
-
-  const data = {  toaster }
+  const data = { toaster }
   return (
     <GlobalStateContext.Provider value={data}>
       {props.children}

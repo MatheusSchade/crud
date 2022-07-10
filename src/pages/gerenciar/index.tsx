@@ -12,9 +12,13 @@ import { editPatient } from '../../services/editPatient'
 import { deletePatient } from '../../services/deletePatient'
 import ZipCode from '../../types/ZipCode'
 import PaginationArea from '../../components/PaginationArea'
+import Size from '../../types/Size'
+import PatientListMobile from '../../components/PatientListMobile'
+import PatientList from '../../components/PatientList'
+import NoRegistredPatients from '../../components/NoRegistredPatients'
 
 
-const Manage: React.FC = () => {
+const Manage: React.FC<{ size: Size }> = ({ size }) => {
   const [title] = useState<string>(`Gerenciar pacientes`)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [allPatients, setAllPatients] = useState<Form[] | null>([])
@@ -27,6 +31,7 @@ const Manage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [typed, setTyped] = useState<string | null>(null)
   const [filteredPatients, setFilteredPatients] = useState<Form[] | null>(allPatients)
+  const [aa, setAa] = useState<null | Form[]>(null)
 
   const pages: number = Math.ceil(filteredPatients?.length / itensPerPage)
   const startIndex = currentPage * itensPerPage
@@ -59,16 +64,6 @@ const Manage: React.FC = () => {
   const helperCatchTyped = (data: string) => {
     setTyped(data)
   }
-
-  const returnPatient = currentItens?.map((item: Form, index: number) => {
-    return (
-      <EachPatientLi
-        helperToDelete={helperToDelete}
-        helperToEdit={helperToEdit}
-        key={index} patient={item}
-      />
-    )
-  })
 
   const filteringPatients = (typed: string) => {
     let newPatientsList = allPatients?.filter((item) => {
@@ -123,36 +118,40 @@ const Manage: React.FC = () => {
           <section>
             <PageHeadTitle text={title} />
             {allPatients?.length > 0 ?
-              <div className='pt-3 w-full'>
+              <div className='py-3 w-full'>
                 <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
-                <table className={`${styles.tableArea}`}>
-                  <tbody>
-                    <tr className={`grid grid-cols-12 text-center ${styles.headTable}`}>
-                      <th className={`col-span-1 my-auto`}>ID</th>
-                      <th className={`col-span-3 my-auto`}>Nome</th>
-                      <th className={`col-span-1 my-auto`}>Data de nascimento</th>
-                      <th className={`col-span-3 my-auto`}>E-mail</th>
-                      <th className={`col-span-3 my-auto`}>Endereço</th>
-                      <th className={`col-span-1 my-auto`}></th>
-                    </tr>
-                    {returnPatient}
-                  </tbody>
-                </table>
-                {itensPerPage >= 10 && currentItens.length >= 8 &&
-                  <PaginationArea showFilter={false} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
+                {size?.width > 768 ?
+                  <PatientList
+                    currentItens={currentItens}
+                    helperToDelete={helperToDelete}
+                    helperToEdit={helperToEdit}
+                  />
+                  : <PatientListMobile
+                    currentItens={currentItens}
+                    helperToDelete={helperToDelete}
+                    helperToEdit={helperToEdit}
+                  />
+                }
+                {itensPerPage >= 10 && currentItens.length >= 9 &&
+                  <PaginationArea
+                    showFilter={false}
+                    helperCatchTyped={helperCatchTyped}
+                    itensPerPage={itensPerPage}
+                    setItensPerPage={setItensPerPage}
+                    currentPage={currentPage}
+                    allPatients={allPatients}
+                    pages={pages}
+                    setCurrentPage={setCurrentPage} />
                 }
               </div> :
-              <div className={`mt-16 text-center`}>
-                <p className={`my-5 text-center`}>Não há nenhum paciente cadastrado para exibir. </p>
-                <RouteButton path='/registrar' title={`Adicionar primeiro paciente`} />
-              </div>
+              <NoRegistredPatients />
             }
           </section>
-          <div className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
-            <div className='my-2 flex btnArea'>
+          <section className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
+            <div className='my- flex btnArea'>
               <RouteButton path='/' title={`Voltar`} />
             </div>
-          </div>
+          </section>
         </Fragment>
       }
     </div>
