@@ -9,16 +9,21 @@ export const addPatients = async (form: Form, clear: () => void, zipCodeData?: Z
   const city: string = zipCodeData?.localidade || form?.city
   const state: string = zipCodeData?.uf || form?.state
   const createdAt: string = new Date().toLocaleDateString()
+  let showError: string = null
 
   let body = { ...form, createdAt, address, neighborhood, city, state }
 
   await axios.post(`${BASE_URL}/patient`, body)
-    .then((response) => {
-      console.log(response?.data)
+    .then(() => {
       clear()
     })
     .catch((error) => {
       console.log(error?.response)
+      showError = "error"
     })
+
+  if (showError) {
+    return showError
+  }
 }
 

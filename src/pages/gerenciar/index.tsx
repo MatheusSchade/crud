@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Fragment, useEffect, useState, useLayoutEffect } from 'react'
+import { Fragment, useEffect, useState, useLayoutEffect, useContext, useCallback } from 'react'
 import HeadContent from '../../components/HeadContent'
 import PageHeadTitle from '../../components/PageHeadTitle'
 import { BASE_URL } from '../../constants/urls'
@@ -14,9 +14,11 @@ import Size from '../../types/Size'
 import PatientListMobile from '../../components/PatientListMobile'
 import PatientList from '../../components/PatientList'
 import NoRegistredPatients from '../../components/NoRegistredPatients'
+import { GlobalStateContext } from '../../global/GlobalStateContext'
+import router from 'next/router'
 
 const Manage: React.FC<{ size: Size }> = ({ size }) => {
-  const [title] = useState<string>(`Gerenciar pacientes`)
+  const { toaster } = useContext(GlobalStateContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [allPatients, setAllPatients] = useState<Form[] | null>([])
   const [idToDelete, setIdToDelete] = useState(null)
@@ -28,13 +30,12 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [typed, setTyped] = useState<string | null>(null)
   const [filteredPatients, setFilteredPatients] = useState<Form[] | null>(allPatients)
-
   const pages: number = Math.ceil(filteredPatients?.length / itensPerPage)
   const startIndex = currentPage * itensPerPage
   const endIndex = startIndex + itensPerPage
   const currentItens: Form[] | null = filteredPatients.slice(startIndex, endIndex)
 
-  const getAllPatients = async () => {
+  const getAllPatients = useCallback(async () => {
     await axios.get(`${BASE_URL}/patient`)
       .then((response) => {
         setAllPatients(response?.data)
@@ -42,9 +43,11 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
       })
       .catch((error) => {
         console.log(error?.response)
+        toaster("Erro ao buscar pacientes. Tente novamente mais tarde!", 3000, "error")
+        router.push("/")
       })
     setIsLoading(false)
-  }
+  }, [toaster])
 
   const helperToEdit = (form: Form, idToEdit: string, zipCodeData: ZipCode, newForm?: Form) => {
     setFormToEdit(form)
@@ -63,17 +66,27 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
 
   useEffect(() => {
     getAllPatients()
-  }, [])
+  }, [getAllPatients])
 
   useEffect(() => {
-    idToDelete && deletePatient(idToDelete)
+    const deletePatients = async () => {
+      let tryDeletePatient = await deletePatient(idToDelete)
+      {
+        tryDeletePatient ?
+          toaster("Não foi possível deletar o paciente. Tente novamente mais tarde", 3000, "error")
+          :
+          toaster("Paciente deletado com sucesso!", 3000, "success")
+      }
+    }
+
+    { idToDelete && deletePatients() }
     idToDelete && setIsLoading(true)
     idToDelete && setTimeout(() => {
       getAllPatients()
       setIdToDelete(null)
       setIsLoading(false)
     }, 1000)
-  }, [idToDelete])
+  }, [idToDelete, toaster, getAllPatients])
 
   useEffect(() => {
     idToEdit && editPatient(formToEdit, idToEdit, zipToEdit)
@@ -86,7 +99,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
       setNewFormToEdit(null)
       setIsLoading(false)
     }, 1000)
-  }, [idToEdit, formToEdit, zipToEdit, idToDelete])
+  }, [idToEdit, formToEdit, zipToEdit, idToDelete, getAllPatients])
 
   useLayoutEffect(() => {
     setCurrentPage(0)
@@ -112,7 +125,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
         <Fragment>
           <HeadContent title={`Gerenciar Pacientes - CRUD Medcloud`} />
           <section>
-            <PageHeadTitle text={title} />
+            <PageHeadTitle text={`Gerenciar pacientes`} />
             {allPatients?.length > 0 ?
               <div className='py-3 w-full'>
                 <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
@@ -144,8 +157,11 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
             }
           </section>
           <section className='text-center sm:mt-12 mt-4 flex items-center justify-center flex-col sm:flex-row'>
-            <div className='my- flex btnArea'>
+            <div className='my-1 flex btnArea'>
               <RouteButton path='/' title={`Voltar`} />
+            </div>
+            <div className='my-1 flex btnArea'>
+              <RouteButton path='/registrar' title={`Novo paciente`} />
             </div>
           </section>
         </Fragment>

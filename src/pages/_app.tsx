@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import { GlobalState } from "../global/GlobalState"
 import Footer from '../components/Footer'
 import { useWindowSize } from '../hooks/useWindowResize'
+import TopButton from '../components/TopButton'
 
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
@@ -19,6 +20,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <Header />
       <main className='containerPages'>
         <Component size={size} {...pageProps} />
+        <TopButton />
       </main>
       <Footer />
     </GlobalState>

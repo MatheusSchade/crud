@@ -12,8 +12,8 @@
   --baseFive: #172a3c;
   --contrastStrong: #fff;
   --contrastBright: #393e41;
-  --btnPrimary: #3B82F6;
-  --boxShadow1:  0px 2px 2px 0px rgba(88, 88, 88, 0.5);
+  --btnPrimary: #3b82f6;
+  --boxShadow1: 0px 2px 2px 0px rgba(88, 88, 88, 0.5);
 }
 
 html,
@@ -74,6 +74,12 @@ input[type="number"] {
 .mainBtn:hover {
   background-color: var(--btnPrimary);
   color: var(--contrastStrong);
+}
+
+.btnDefaultColor {
+  background-color: var(--btnPrimary);
+  color: var(--contrastStrong);
+  transition: 0.5s ease-in-out;
 }
 
 /* responsive */

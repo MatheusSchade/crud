@@ -14,11 +14,14 @@ import { GlobalStateContext } from '../../global/GlobalStateContext'
 import Loader from '../../components/Loader'
 import { getZipCode } from '../../services/getZipCode'
 import RouteButton from '../../components/RouteButton'
+import Size from '../../types/Size'
+import scrollTo from '../../services/scrollTo'
 
 
-const Register: React.FC = () => {
+const Register: React.FC<{ size: Size }> = ({ size }) => {
   const { toaster } = useContext(GlobalStateContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isSpinnerLoading, setIsSpinnerLoading] = useState<boolean>(false)
   const [title] = useState<string>(`Registrar novo paciente`)
   const [zipCodeData, setZipCodeData] = useState<ZipCode | null>(null)
   const [form, onChange, clear] = useForms({
@@ -73,19 +76,28 @@ const Register: React.FC = () => {
     }
 
     if (isValid) {
-      toaster("Paciente cadastrado com sucesso!", 3000, "success")
+      scrollTo(50)
       return true
     } else {
+      { size?.width <= 768 && scrollTo(325) }
       toaster(msg, 3000, "error")
     }
   }
 
-  const onSubmitForm = (event: { preventDefault: () => void }) => {
+  const onSubmitForm = async (event: { preventDefault: () => void }) => {
+    setIsSpinnerLoading(true)
     if (checkForm()) {
       event.preventDefault()
-      addPatients(form, clear, zipCodeData)
+      let tryAddPatient = await addPatients(form, clear, zipCodeData)
       setZipCodeData(null)
+      {
+        tryAddPatient ?
+          toaster("Não foi possível cadastrar o paciente. Tente novamente mais tarde", 3000, "error")
+          :
+          toaster("Paciente cadastrado com sucesso!", 3000, "success")
+      }
     }
+    setIsSpinnerLoading(false)
   }
 
   const zipCode = async (event) => {
@@ -119,10 +131,10 @@ const Register: React.FC = () => {
             </form>
             <div className='text-center md:mt-12 mt-4 flex items-center justify-center flex-col-reverse sm:flex-row'>
               <div className='my-2 flex btnArea'>
-              <RouteButton path='/' title={`Voltar`} />
+                <RouteButton path='/' title={`Voltar`} />
               </div>
               <div className='my-2 flex btnArea'>
-                <FunctionButton click={onSubmitForm} text={`Cadastrar`} />
+                <FunctionButton isLoading={isSpinnerLoading} alt={`Cadastrando`} click={onSubmitForm} text={`Cadastrar`} />
               </div>
             </div>
           </section>
