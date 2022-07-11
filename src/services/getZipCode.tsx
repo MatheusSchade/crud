@@ -13,5 +13,6 @@ export const getZipCode = async (code: string): Promise<ZipCode> => {
         zipCodeData = `error`
       })
   }
+  console.log(zipCodeData)
   return zipCodeData
 }

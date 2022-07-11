@@ -116,7 +116,9 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
     if (zipCodeData) {
       setZipCodeData(zipCodeData)
     } else {
-      toaster("CEP não encontrado. Favor preencher os demais campos!", 3000, "warning")
+      if (form?.zipCode?.length == 8) {
+        toaster("CEP não encontrado. Favor preencher os demais campos!", 3000, "warning")
+      }
     }
   }
 
