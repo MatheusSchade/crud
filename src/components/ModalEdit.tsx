@@ -53,8 +53,8 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       msg = `Digite um CEP válido para prosseguir.`
     } else if (!zipCodeData?.logradouro && form?.address?.length < 2) {
       msg = `Digite um logradouro válido para prosseguir.`
-    } else if (form?.address?.length > 30) {
-      msg = `O campo "Logradouro" aceita um máximo de 30 caracteres.`
+    } else if (form?.address?.length > 40) {
+      msg = `O campo "Logradouro" aceita um máximo de 40 caracteres.`
     } else if (!form?.numberAddress) {
       msg = `Digite o número da residência para prosseguir.`
     } else if (form?.numberAddress?.length > 6) {
@@ -94,7 +94,11 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
 
   const zipCode = async (event) => {
     let zipCodeData = await getZipCode(event?.target?.value)
-    setZipCodeData(zipCodeData)
+    if (zipCodeData) {
+      setZipCodeData(zipCodeData)
+    } else {
+      toaster("CEP não encontrado. Favor digitar os demais campos!", 3000, "warning")
+    }
   }
 
   const openModal = async () => {

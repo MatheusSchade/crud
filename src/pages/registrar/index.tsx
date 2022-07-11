@@ -17,7 +17,7 @@ import RouteButton from '../../components/RouteButton'
 import Size from '../../types/Size'
 import scrollTo from '../../services/scrollTo'
 import saveInLocalStorage from '../../services/saveInLocalStorage'
-import { data } from 'autoprefixer'
+import getLocalStorageValues from '../../services/getLocalStorageValues'
 
 const Register: React.FC<{ size: Size }> = ({ size }) => {
   const { toaster } = useContext(GlobalStateContext)
@@ -25,7 +25,6 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
   const [isSpinnerLoading, setIsSpinnerLoading] = useState<boolean>(false)
   const [title] = useState<string>(`Registrar novo paciente`)
   const [zipCodeData, setZipCodeData] = useState<ZipCode | null>(null)
-  const [localData, setLocalData] = useState(null)
 
   const [form, onChange, clear] = useForms({
     name: "",
@@ -40,8 +39,6 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
     state: "",
     createdAt: ""
   })
-
-
 
   const checkForm = (): boolean => {
     let msg: string = ""
@@ -63,8 +60,8 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
       msg = `Digite um CEP válido para prosseguir.`
     } else if (!zipCodeData?.logradouro && form?.address?.length < 2) {
       msg = `Digite um logradouro válido para prosseguir.`
-    } else if (form?.address?.length > 30) {
-      msg = `O campo "Logradouro" aceita um máximo de 30 caracteres.`
+    } else if (form?.address?.length > 40) {
+      msg = `O campo "Logradouro" aceita um máximo de 40 caracteres.`
     } else if (!form?.numberAddress) {
       msg = `Digite o número da residência para prosseguir.`
     } else if (form?.numberAddress?.length > 6) {
@@ -106,6 +103,7 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
       }
     }
     setIsSpinnerLoading(false)
+    localStorage.removeItem("form")
   }
 
   const helperZipCode = (event) => {
@@ -115,19 +113,39 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
 
   const zipCode = async (event) => {
     let zipCodeData = await getZipCode(event?.target?.value)
-    setZipCodeData(zipCodeData)
+    if (zipCodeData) {
+      setZipCodeData(zipCodeData)
+    } else {
+      toaster("CEP não encontrado. Favor preencher os demais campos!", 3000, "warning")
+    }
   }
 
-  // const defineForm = async () => {
-  //   let dataStorage = await JSON.parse(localStorage.getItem("form"))
-  //   if (dataStorage) {
-  //     console.log(dataStorage)
-  //   }
-  // }
+  const getLocalStorage = async () => {
+    let dataStorage = await JSON.parse(localStorage.getItem("form"))
+    if (dataStorage) {
+      clear()
+      form.name = getLocalStorageValues("name")
+      form.birthdate = getLocalStorageValues("birthdate")
+      form.email = getLocalStorageValues("email")
+      form.zipCode = getLocalStorageValues("zipCode")
+      form.address = getLocalStorageValues("address")
+      form.numberAddress = getLocalStorageValues("numberAddress")
+      form.complement = getLocalStorageValues("complement")
+      form.neighborhood = getLocalStorageValues("neighborhood")
+      form.city = getLocalStorageValues("city")
+      form.state = getLocalStorageValues("state")
+    }
+  }
+
+  const clearAllFields = () => {
+    clear()
+    localStorage.removeItem("form")
+    toaster("Todos os campos foram limpos!", 3000, "info")
+  }
 
   useEffect(() => {
     setIsLoading(false)
-    // defineForm()
+    getLocalStorage()
   }, [])
 
   return (
@@ -140,8 +158,7 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
             <h2 className='ml-1'>Insira abaixo os dados do paciente para registrá-lo em nosso banco de dados:</h2>
             <form className='mt-3 grid grid-cols-12'>
               <InputForm blur={saveInLocalStorage} name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`md:col-span-8 col-span-12`} label={`Nome completo`} />
-              {/* <InputForm name={`birthdate`} type={`date`} placeholder={` DD/MM/AAAA `} value={form?.birthdate} change={onChange} size={`md:col-span-4 col-span-12`} label={`Data de Nascimento`} /> */}
-              <InputMasked blur={saveInLocalStorage} name={`birthdate`} type={`date`} placeholder={` DD/MM/AAAA `} value={form?.birthdate} change={onChange} size={`md:col-span-4 col-span-12`} label={`Data de Nascimento`} />
+              <InputForm blur={saveInLocalStorage} name={`birthdate`} type={`date`} placeholder={` DD/MM/AAAA `} value={form?.birthdate} change={onChange} size={`md:col-span-4 col-span-12`} label={`Data de Nascimento`} />
               <InputForm blur={saveInLocalStorage} name={`email`} type={`email`} placeholder={`E-mail`} value={form?.email} change={onChange} size={`md:col-span-8 col-span-12`} label={`E-mail`} />
               <InputForm blur={helperZipCode} name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`md:col-span-4 col-span-12`} label={`CEP`} />
               <InputForm blur={saveInLocalStorage} name={`address`} type={`text`} placeholder={`Logradouro`} value={zipCodeData?.logradouro || form?.address} change={onChange} size={`md:col-span-6 col-span-12`} label={`Logradouro`} />
@@ -157,6 +174,9 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
               </div>
               <div className='my-2 flex btnArea'>
                 <FunctionButton isLoading={isSpinnerLoading} alt={`Cadastrando`} click={onSubmitForm} text={`Cadastrar`} />
+              </div>
+              <div className='my-2 flex btnArea'>
+                <FunctionButton click={clearAllFields} text={`Limpar`} />
               </div>
             </div>
           </section>

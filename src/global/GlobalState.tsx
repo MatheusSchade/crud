@@ -39,8 +39,6 @@ export const GlobalState = (props: any) => {
           draggable: true,
           progress: undefined
         });
-
-        toast.warning("");
       },
       info: () => {
         toast.info(`${text}`, {
@@ -52,8 +50,6 @@ export const GlobalState = (props: any) => {
           draggable: true,
           progress: undefined
         });
-
-        toast.info("");
       }
     };
 

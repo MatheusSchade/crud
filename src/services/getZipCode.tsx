@@ -10,6 +10,7 @@ export const getZipCode = async (code: string): Promise<ZipCode> => {
         zipCodeData = response?.data
       }).catch((error) => {
         console.log(error?.response?.data)
+        zipCodeData = `error`
       })
   }
   return zipCodeData
