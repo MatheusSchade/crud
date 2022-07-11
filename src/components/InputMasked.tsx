@@ -11,8 +11,9 @@ const InputMasked: React.FC<InputMaskedTp> = ({
         {label}
       </label>
       <InputMask mask={mask}
-        value={value} onChange={change}
-        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+        value={value} onChange={change} onBlur={blur}
+        className={`bg-white
+        placeholder-gray-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline`}
         id={name} name={name} type={type} placeholder={placeholder}
       />
     </div>

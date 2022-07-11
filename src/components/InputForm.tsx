@@ -2,7 +2,7 @@ import getTodayDate from "../services/getTodayDate"
 import convertDate from "../services/convertDate"
 import InputTextTp from "../types/InputTextTp"
 
-const InputText: React.FC<InputTextTp> = ({  size, label, change, value, name, type, placeholder, blur, maxLength }) => {
+const InputText: React.FC<InputTextTp> = ({ size, label, change, value, name, type, placeholder, blur, maxLength }) => {
 
   return (
     <div className={`mb-3 px-1 ${size}`}>
@@ -19,6 +19,8 @@ const InputText: React.FC<InputTextTp> = ({  size, label, change, value, name, t
         onChange={change}
         className={
           `bg-white
+          placeholder-gray-400
+          text-gray-700
             outline-none
              shadow
               appearance-none
