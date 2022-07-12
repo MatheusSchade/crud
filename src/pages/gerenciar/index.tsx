@@ -41,8 +41,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
         setAllPatients(response?.data)
         setFilteredPatients(response?.data)
       })
-      .catch((error) => {
-        console.log(error?.response)
+      .catch(() => {
         toaster("Erro ao buscar pacientes. Tente novamente mais tarde!", 3000, "error")
         router.push("/")
       })
@@ -63,6 +62,13 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
   const helperCatchTyped = (data: string) => {
     setTyped(data)
   }
+
+  const responseWhenEdit = useCallback(async () => {
+    let resEditPatient = await editPatient(formToEdit, idToEdit, zipToEdit)
+    resEditPatient ?
+      toaster("Não foi possível editar o paciente. Tente novamente mais tarde!", 3000, "error") :
+      toaster("Paciente alterado com sucesso!", 3000, "success")
+  }, [formToEdit, idToEdit, zipToEdit, toaster])
 
   useEffect(() => {
     getAllPatients()
@@ -87,13 +93,6 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
       setIsLoading(false)
     }, 1000)
   }, [idToDelete, toaster, getAllPatients])
-
-  const responseWhenEdit = useCallback(async () => {
-    let resEditPatient = await editPatient(formToEdit, idToEdit, zipToEdit)
-    resEditPatient ?
-      toaster("Não foi possível editar o paciente. Tente novamente mais tarde!", 3000, "error") :
-      toaster("Paciente alterado com sucesso!", 3000, "success")
-  }, [formToEdit, idToEdit, zipToEdit, toaster])
 
   useEffect(() => {
     idToEdit && responseWhenEdit()
@@ -137,16 +136,8 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
               <div className='py-3 w-full'>
                 <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
                 {size?.width > 768 ?
-                  <PatientList
-                    currentItens={currentItens}
-                    helperToDelete={helperToDelete}
-                    helperToEdit={helperToEdit}
-                  />
-                  : <PatientListMobile
-                    currentItens={currentItens}
-                    helperToDelete={helperToDelete}
-                    helperToEdit={helperToEdit}
-                  />
+                  <PatientList currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
+                  : <PatientListMobile currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
                 }
                 {itensPerPage >= 10 && currentItens.length >= 9 &&
                   <PaginationArea

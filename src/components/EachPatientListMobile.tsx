@@ -5,9 +5,10 @@ import convertDate from "../services/convertDate"
 import ModalEdit from "./ModalEdit"
 import ModalDelete from "./ModalDelete"
 import EachPatientLiTp from "../types/EachPatientLiTp"
+import EachAccordionMobileInfo from "./EachAccordionMobileInfo"
 
 const EachPatientListMobile: React.FC<EachPatientLiTp> = ({ helperToDelete, helperToEdit, patient }) => {
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false)
+  const [isAccordionOpen, setIsAccordionOpen] = useState<boolean>(false)
 
   const invertAccordion = () => {
     isAccordionOpen ? setIsAccordionOpen(false) : setIsAccordionOpen(true)
@@ -25,15 +26,15 @@ const EachPatientListMobile: React.FC<EachPatientLiTp> = ({ helperToDelete, help
         <div className={isAccordionOpen ? `${styles.fadeIn}` : `${styles.fadeOut}`}>
           <hr />
           <div className={isAccordionOpen ? `${styles.show}` : `${styles.dontShow}`}>
-            <span><strong>E-mail:</strong> {patient?.email}</span>
-            <p><strong>Data de nascimento:</strong> {convertDate(patient?.birthdate)}</p>
-            <p><strong>Logradouro:</strong> {patient?.address}</p>
-            <span><strong>Número:</strong> {patient?.numberAddress}</span>
-            {patient?.complement && <span>, {patient?.complement}</span>}
-            <p><strong>Bairro:</strong> {patient?.neighborhood}</p>
-            <p><strong>Cidade:</strong> {patient?.city}</p>
-            <p><strong>CEP:</strong> {patient?.zipCode}</p>
-            <p><strong>Estado:</strong> {patient?.state?.toUpperCase()}</p>
+            <EachAccordionMobileInfo text="E-mail: " info={patient?.email} />
+            <EachAccordionMobileInfo text="Data de nascimento: " info={convertDate(patient?.birthdate)} />
+            <EachAccordionMobileInfo text="Logradouro: " info={patient?.address} />
+            <EachAccordionMobileInfo text="Número: " info={patient?.numberAddress} />
+            {patient?.complement && <EachAccordionMobileInfo text="Complemento: " info={patient?.complement} />}
+            <EachAccordionMobileInfo text="Bairro: " info={patient?.neighborhood} />
+            <EachAccordionMobileInfo text="Cidade: " info={patient?.city} />
+            <EachAccordionMobileInfo text={`CEP: `} info={patient?.zipCode} />
+            <EachAccordionMobileInfo text={`Estado: `} info={patient?.state?.toUpperCase()} />
             <div className={`flex absolute ${styles.actionsBtnArea}`}>
               <ModalEdit setIsAccordionOpen={setIsAccordionOpen} helperToEdit={helperToEdit} patient={patient} />
               <ModalDelete setIsAccordionOpen={setIsAccordionOpen} helperToDelete={helperToDelete} patient={patient} />

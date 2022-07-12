@@ -8,11 +8,9 @@ export const getZipCode = async (code: string): Promise<ZipCode> => {
     await axios.get(`https://viacep.com.br/ws/${zipCode}/json/`)
       .then((response) => {
         zipCodeData = response?.data
-      }).catch((error) => {
-        console.log(error?.response?.data)
+      }).catch(() => {
         zipCodeData = `error`
       })
   }
-  console.log(zipCodeData)
   return zipCodeData
 }

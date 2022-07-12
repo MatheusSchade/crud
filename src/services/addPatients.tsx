@@ -18,7 +18,6 @@ export const addPatients = async (form: Form, clear: () => void, zipCodeData?: Z
       clear()
     })
     .catch((error) => {
-      console.log(error?.response)
       showError = "error"
     })
 

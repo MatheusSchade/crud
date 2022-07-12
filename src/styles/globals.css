@@ -9,10 +9,11 @@
   --baseTwo: #d3d0cb;
   --baseThree: #e7e5df;
   --baseFour: #009adf;
-  --baseFive: #172a3c;
+  --baseFive: rgb(148 163 184);
   --contrastStrong: #fff;
   --contrastBright: #393e41;
   --btnPrimary: #3b82f6;
+
   --boxShadow1: 0px 2px 2px 0px rgba(88, 88, 88, 0.5);
 }
 
@@ -36,10 +37,6 @@ a {
 * {
   box-sizing: border-box;
   outline: 0;
-}
-
-select:invalid {
-  color: gray;
 }
 
 input::-webkit-outer-spin-button,
@@ -89,6 +86,24 @@ input[type="number"] {
   transition: 0.5s ease-in-out;
 }
 
+/* colors */
+
+.baseFourText {
+  color: var(--baseFour);
+}
+
+.contrastBrightText {
+  color: var(--contrastBright);
+}
+
+.contrastStrongText {
+  color: var(--contrastStrong);
+}
+
+.contrastStrongBg {
+  background-color: var(--contrastStrong);
+}
+
 /* responsive */
 
 @media screen and (max-width: 768px) {
@@ -100,7 +115,7 @@ input[type="number"] {
 
 @media screen and (max-width: 640px) {
   .pageTitle {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
   }
 
   .logo {

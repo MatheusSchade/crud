@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FocusEvent } from "react";
+import { ChangeEventHandler } from "react";
 
 export default interface InputTextTp {
   size: string,

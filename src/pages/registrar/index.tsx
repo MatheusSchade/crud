@@ -48,8 +48,8 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
       return item !== "";
     }).length < 2) {
       msg = `O campo "nome completo" deve conter nome e sobrenome.`
-    } else if (form?.name?.length > 30) {
-      msg = `O campo "nome completo" aceita um máximo de 30 caracteres.`
+    } else if (form?.name?.length > 40) {
+      msg = `O campo "nome completo" aceita um máximo de 40 caracteres.`
     } else if (!form?.birthdate) {
       msg = "Selecione uma data de nascimento para prosseguir."
     } else if (!regexMatcher(/\S+@\S+\.\S+/, form?.email)) {

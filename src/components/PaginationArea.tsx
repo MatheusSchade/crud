@@ -1,20 +1,11 @@
-import { Dispatch, Fragment, SetStateAction, useEffect } from "react"
+import { Fragment, useEffect } from "react"
 import useForms from "../hooks/useForms"
-import { Form } from "../types/Form"
+import PaginationAreaTp from "../types/PaginationAreaTp"
 import InputText from "./InputForm"
 import Pagination from "./Pagination"
 import SelectPagination from "./SelectPagination"
 
-const PaginationArea: React.FC<{
-  itensPerPage: number,
-  setItensPerPage: Dispatch<SetStateAction<number>>,
-  currentPage: number,
-  allPatients: Form[],
-  pages: number,
-  setCurrentPage: Dispatch<SetStateAction<number>>,
-  helperCatchTyped: (data: string) => void,
-  showFilter: boolean
-}> = ({ itensPerPage, setItensPerPage, currentPage, allPatients, pages, setCurrentPage, helperCatchTyped, showFilter }) => {
+const PaginationArea: React.FC<PaginationAreaTp> = ({ itensPerPage, setItensPerPage, currentPage, allPatients, pages, setCurrentPage, helperCatchTyped, showFilter }) => {
   const [form, onChange, clear] = useForms({ search: "" })
 
   useEffect(() => {

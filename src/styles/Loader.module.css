@@ -5,8 +5,8 @@
 .loader {
   width: 5rem;
   height: 5rem;
+  border-left-color: var(--baseFive);
+  border-right-color: var(--baseFive);
+  border-bottom-color: var(--baseFive);
+  border-top-color: var(--baseOne);
 }
-
-
-
-

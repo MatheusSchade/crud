@@ -8,8 +8,7 @@ const FunctionButton: React.FC<FunctionButtonTp> = ({ text, click, alt, isLoadin
           <span>{alt}</span>
           <span className="ml-1.5 spinner-border animate-spin inline-block w-4 h-4 border-2 rounded-full border-white border-r-gray-800"></span>
         </div> :
-        <span>{text}</span>
-      }
+        <span>{text}</span>}
     </button>
   )
 }

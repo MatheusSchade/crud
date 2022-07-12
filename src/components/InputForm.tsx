@@ -6,7 +6,7 @@ const InputText: React.FC<InputTextTp> = ({ size, label, change, value, name, ty
 
   return (
     <div className={`mb-3 px-1 ${size}`}>
-      <label className="block outline-none text-gray-700 text-sm font-bold mb-2" htmlFor={name} >
+      <label className="block outline-none contrastBrightText text-sm font-bold mb-2" htmlFor={name} >
         {label}
       </label>
       <input
@@ -18,9 +18,9 @@ const InputText: React.FC<InputTextTp> = ({ size, label, change, value, name, ty
         value={value}
         onChange={change}
         className={
-          `bg-white
+          `contrastStrongBg
           placeholder-gray-400
-          text-gray-700
+          contrastBrightText
             outline-none
              shadow
               appearance-none

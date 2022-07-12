@@ -1,1 +1,3 @@
-export default interface HeadContentTp { title: string }
+export default interface HeadContentTp {
+  title: string
+}

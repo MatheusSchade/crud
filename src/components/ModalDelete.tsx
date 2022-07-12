@@ -25,7 +25,7 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
   return (
     <Fragment>
       <button data-bs-toggle="tooltip" title="Excluir usuário do sistema" onClick={openModal} className={`${styles.deleteBtn}`}>
-        <TrashIcon className="h-5 w-5 text-blue-500" />
+        <TrashIcon className="h-5 w-5 baseFourText" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -51,16 +51,16 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg contrastStrongBg p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 contrastBrightText"
                   >
-                    <InformationCircleIcon className="h-20 w-20 mx-auto text-blue-500" />
+                    <InformationCircleIcon className="h-20 w-20 mx-auto baseFourText" />
                   </Dialog.Title>
                   <div className="mt-5">
                     <p className="mb-6 md:mx-6 mx-2 text-lg text-center font-bold">
-                      Tem certeza que deseja excluir o paciente <strong className={`text-blue-500 ${styles.patientsName}`}>{patient?.name} </strong>?
+                      Tem certeza que deseja excluir o paciente <strong className={`${styles.patientsName}`}>{patient?.name} </strong>?
                     </p>
                     <p className='text-center mb-16 md:px-12 px-0'>Uma vez confirmado, não será possível reverter esta ação!</p>
                   </div>

@@ -41,8 +41,8 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       return item !== "";
     }).length < 2) {
       msg = `O campo "Nome completo" deve conter nome e sobrenome.`
-    } else if (form?.name?.length > 30) {
-      msg = `O campo "nome completo" aceita um máximo de 30 caracteres.`
+    } else if (form?.name?.length > 40) {
+      msg = `O campo "nome completo" aceita um máximo de 40 caracteres.`
     } else if (!form?.birthdate) {
       msg = "Selecione uma data de nascimento para prosseguir."
     } else if (!regexMatcher(/\S+@\S+\.\S+/, form?.email)) {
@@ -92,7 +92,6 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
 
   const zipCode = async (event) => {
     let zipCodeData = null
-    console.log(event?.target?.value?.length)
     if (event?.target?.value?.length == 8) {
       zipCodeData = await getZipCode(event?.target?.value)
 
@@ -143,15 +142,15 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-lg contrastStrongBg p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-xl font-bold leading-6 text-gray-900"
+                    className="text-xl font-bold leading-6 contrastBrightText"
                   >
                     Editar Paciente
                   </Dialog.Title>
                   <div className="mt-2">
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm contrastBrightText">
                       <form className='mt-3 grid grid-cols-12'>
                         <InputForm name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`md:col-span-8 sm:col-span-6 col-span-12`} label={`Nome completo`} />
                         <InputForm name={`birthdate`} type={`date`} placeholder={`DD/MM/AAAA`} value={form?.birthdate} change={onChange} size={`md:col-span-4 sm:col-span-6 col-span-12`} label={`Data de Nascimento`} />

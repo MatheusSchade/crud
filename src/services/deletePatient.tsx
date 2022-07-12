@@ -5,11 +5,7 @@ export const deletePatient = async (id: string) => {
   let showError: string = null
 
   await axios.delete(`${BASE_URL}/patient/${id}`)
-    .then((response) => {
-      console.log(response?.data)
-    })
-    .catch((error) => {
-      console.log(error?.response)
+    .then(() => { }).catch(() => {
       showError = "error"
     })
 
