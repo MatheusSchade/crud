@@ -107,18 +107,16 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
   }
 
   const helperZipCode = (event) => {
-    zipCode(event)
+    event?.target?.value?.length == 8 && zipCode(event)
     saveInLocalStorage(event)
   }
 
   const zipCode = async (event) => {
     let zipCodeData = await getZipCode(event?.target?.value)
-    if (zipCodeData) {
+    if (zipCodeData?.cep) {
       setZipCodeData(zipCodeData)
     } else {
-      if (form?.zipCode?.length == 8) {
-        toaster("CEP não encontrado. Favor preencher os demais campos!", 3000, "warning")
-      }
+      toaster("CEP não encontrado!", 3000, "warning")
     }
   }
 

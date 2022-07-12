@@ -86,19 +86,20 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       const id = patient?.id
       helperToEdit(form, id, zipCodeData)
       closeModal()
-      // toaster("Paciente alterado com sucesso!", 3000, "success")
       clear()
-      // setIsAccordionOpen(false)
     }
   }
 
   const zipCode = async (event) => {
-    let zipCodeData = await getZipCode(event?.target?.value)
-    if (zipCodeData) {
-      setZipCodeData(zipCodeData)
-    } else {
-      if (form?.zipCode?.length == 8) {
-        toaster("CEP não encontrado. Favor preencher os demais campos!", 3000, "warning")
+    let zipCodeData = null
+    console.log(event?.target?.value?.length)
+    if (event?.target?.value?.length == 8) {
+      zipCodeData = await getZipCode(event?.target?.value)
+
+      if (zipCodeData?.cep) {
+        setZipCodeData(zipCodeData)
+      } else {
+        toaster("CEP não encontrado!", 3000, "warning")
       }
     }
   }

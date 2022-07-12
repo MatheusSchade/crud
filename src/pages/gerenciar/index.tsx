@@ -88,7 +88,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
     }, 1000)
   }, [idToDelete, toaster, getAllPatients])
 
-  const helperToEditPatient = useCallback(async () => {
+  const responseWhenEdit = useCallback(async () => {
     let resEditPatient = await editPatient(formToEdit, idToEdit, zipToEdit)
     resEditPatient ?
       toaster("Não foi possível editar o paciente. Tente novamente mais tarde!", 3000, "error") :
@@ -96,7 +96,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
   }, [formToEdit, idToEdit, zipToEdit, toaster])
 
   useEffect(() => {
-    idToEdit && helperToEditPatient()
+    idToEdit && responseWhenEdit()
     idToDelete && setIsLoading(true)
     idToEdit && setTimeout(() => {
       getAllPatients()
@@ -106,7 +106,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
       setNewFormToEdit(null)
       setIsLoading(false)
     }, 1000)
-  }, [idToEdit, formToEdit, zipToEdit, idToDelete, getAllPatients, helperToEditPatient])
+  }, [idToEdit, formToEdit, zipToEdit, idToDelete, getAllPatients, responseWhenEdit])
 
   useLayoutEffect(() => {
     setCurrentPage(0)

@@ -30,6 +30,7 @@ const EachPatientListMobile: React.FC<EachPatientLiTp> = ({ helperToDelete, help
             <p><strong>Logradouro:</strong> {patient?.address}</p>
             <span><strong>Número:</strong> {patient?.numberAddress}</span>
             {patient?.complement && <span>, {patient?.complement}</span>}
+            <p><strong>Bairro:</strong> {patient?.neighborhood}</p>
             <p><strong>Cidade:</strong> {patient?.city}</p>
             <p><strong>CEP:</strong> {patient?.zipCode}</p>
             <p><strong>Estado:</strong> {patient?.state?.toUpperCase()}</p>
