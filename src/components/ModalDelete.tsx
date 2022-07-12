@@ -5,7 +5,7 @@ import styles from "../styles/ModalDelete.module.css"
 import FunctionButton from './FunctionButton'
 import ModalDeleteTp from '../types/ModalDeleteTp'
 
-const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete, setIsAccordionOpen }) => {
+const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -20,7 +20,6 @@ const ModalDelete: React.FC<ModalDeleteTp> = ({ patient, helperToDelete, setIsAc
     const id = patient?.id
     closeModal()
     helperToDelete(id)
-    setIsAccordionOpen(false)
   }
 
   return (

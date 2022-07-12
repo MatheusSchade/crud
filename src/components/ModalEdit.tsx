@@ -86,9 +86,9 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       const id = patient?.id
       helperToEdit(form, id, zipCodeData)
       closeModal()
-      toaster("Paciente alterado com sucesso!", 3000, "success")
+      // toaster("Paciente alterado com sucesso!", 3000, "success")
       clear()
-      setIsAccordionOpen(false)
+      // setIsAccordionOpen(false)
     }
   }
 

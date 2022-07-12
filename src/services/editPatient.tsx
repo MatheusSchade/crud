@@ -10,11 +10,15 @@ export const editPatient = async (form: Form, id: string, zipCodeData: ZipCode) 
   const state: string = zipCodeData?.uf || form?.state
 
   let body = { ...form, address, neighborhood, city, state }
+  let response = null
 
-  axios.put(`${BASE_URL}/patient/${id}`, body)
+  await axios.put(`${BASE_URL}/patient/${id}`, body)
     .then((response) => {
       console.log(response)
     }).catch((error) => {
       console.log(error?.response?.data)
+      response = `error`
     })
+
+  return response
 }
