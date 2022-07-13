@@ -18,6 +18,7 @@ import Size from '../../types/Size'
 import scrollTo from '../../services/scrollTo'
 import saveInLocalStorage from '../../services/saveInLocalStorage'
 import getLocalStorageValues from '../../services/getLocalStorageValues'
+import filterZipCode from '../../services/filterZipCode'
 
 const Register: React.FC<{ size: Size }> = ({ size }) => {
   const { toaster } = useContext(GlobalStateContext)
@@ -56,7 +57,7 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
       msg = `Digite um e-mail válido para prosseguir.`
     } else if (form?.email?.length > 40) {
       msg = `O campo "email" aceita um máximo de 40 caracteres.`
-    } else if (!regexMatcher(/^[0-9]{8}$/, form?.zipCode)) {
+    } else if (form?.zipCode?.length < 8) {
       msg = `Digite um CEP válido para prosseguir.`
     } else if (!zipCodeData?.logradouro && form?.address?.length < 2) {
       msg = `Digite um logradouro válido para prosseguir.`
@@ -107,12 +108,14 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
   }
 
   const helperZipCode = (event) => {
-    event?.target?.value?.length == 8 && zipCode(event)
+    console.log("event.target.value", event?.target?.value)
+    event?.target?.value?.length >= 8 && zipCode(event)
     saveInLocalStorage(event)
   }
 
   const zipCode = async (event) => {
-    let zipCodeData = await getZipCode(event?.target?.value)
+
+    let zipCodeData = await getZipCode(filterZipCode(event?.target?.value))
     if (zipCodeData?.cep) {
       setZipCodeData(zipCodeData)
     } else {
@@ -160,7 +163,7 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
               <InputForm blur={saveInLocalStorage} name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`md:col-span-8 col-span-12`} label={`Nome completo`} />
               <InputForm blur={saveInLocalStorage} name={`birthdate`} type={`date`} placeholder={` DD/MM/AAAA `} value={form?.birthdate} change={onChange} size={`md:col-span-4 col-span-12`} label={`Data de Nascimento`} />
               <InputForm blur={saveInLocalStorage} name={`email`} type={`email`} placeholder={`E-mail`} value={form?.email} change={onChange} size={`md:col-span-8 col-span-12`} label={`E-mail`} />
-              <InputForm blur={helperZipCode} name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`md:col-span-4 col-span-12`} label={`CEP`} />
+              <InputForm blur={helperZipCode} name={`zipCode`} type={`text`} placeholder={`XXXXX-XXX`} value={filterZipCode(form?.zipCode)} change={onChange} size={`md:col-span-4 col-span-12`} label={`CEP`} />
               <InputForm blur={saveInLocalStorage} name={`address`} type={`text`} placeholder={`Logradouro`} value={zipCodeData?.logradouro || form?.address} change={onChange} size={`md:col-span-6 col-span-12`} label={`Logradouro`} />
               <InputForm blur={saveInLocalStorage} name={`numberAddress`} type={`text`} placeholder={`Número`} value={form?.numberAddress} change={onChange} size={`md:col-span-3 col-span-5`} label={`Número`} />
               <InputForm blur={saveInLocalStorage} name={`complement`} type={`text`} placeholder={`Complemento`} value={form?.complement} change={onChange} size={`md:col-span-3 col-span-7`} label={`Complemento`} />

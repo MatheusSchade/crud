@@ -13,6 +13,7 @@ import regexMatcher from '../services/regexMatcher'
 import { brazilianStates } from '../constants/brazilianStates'
 import checkState from '../services/checkState'
 import ModalEditTp from '../types/ModalEditTp'
+import filterZipCode from '../services/filterZipCode'
 
 const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordionOpen, size }) => {
   const { toaster } = useContext(GlobalStateContext)
@@ -49,7 +50,7 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       msg = `Digite um e-mail válido para prosseguir.`
     } else if (form?.email?.length > 40) {
       msg = `O campo "email" aceita um máximo de 40 caracteres.`
-    } else if (!regexMatcher(/^[0-9]{8}$/, form?.zipCode)) {
+    } else if (form?.zipCode?.length < 8) {
       msg = `Digite um CEP válido para prosseguir.`
     } else if (!zipCodeData?.logradouro && form?.address?.length < 2) {
       msg = `Digite um logradouro válido para prosseguir.`
@@ -93,8 +94,8 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
 
   const zipCode = async (event) => {
     let zipCodeData = null
-    if (event?.target?.value?.length == 8) {
-      zipCodeData = await getZipCode(event?.target?.value)
+    if (event?.target?.value?.length >= 8) {
+      zipCodeData = await getZipCode(filterZipCode(event?.target?.value))
 
       if (zipCodeData?.cep) {
         setZipCodeData(zipCodeData)
@@ -156,7 +157,7 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
                         <InputForm name={`name`} type={`text`} placeholder={`Nome`} value={form?.name} change={onChange} size={`md:col-span-8 sm:col-span-6 col-span-12`} label={`Nome completo`} />
                         <InputForm name={`birthdate`} type={`date`} placeholder={`DD/MM/AAAA`} value={form?.birthdate} change={onChange} size={`md:col-span-4 sm:col-span-6 col-span-12`} label={`Data de Nascimento`} />
                         <InputForm name={`email`} type={`email`} placeholder={`E-mail`} value={form?.email} change={onChange} size={`md:col-span-8 sm:col-span-6 col-span-12`} label={`E-mail`} />
-                        <InputForm blur={zipCode} name={`zipCode`} type={`number`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`md:col-span-4 sm:col-span-6 col-span-12`} label={`CEP`} />
+                        <InputForm blur={zipCode} name={`zipCode`} type={`text`} placeholder={`XXXXX-XXX`} value={form?.zipCode} change={onChange} size={`md:col-span-4 sm:col-span-6 col-span-12`} label={`CEP`} />
                         <InputForm name={`address`} type={`text`} placeholder={`Logradouro`} value={zipCodeData?.logradouro || form?.address} change={onChange} size={`sm:col-span-6 col-span-12`} label={`Logradouro`} />
                         <InputForm name={`numberAddress`} type={`text`} placeholder={`Número`} value={form?.numberAddress} change={onChange} size={`sm:col-span-3 col-span-6`} label={`Número`} />
                         <InputForm name={`complement`} type={`text`} placeholder={`Complemento`} value={form?.complement} change={onChange} size={`sm:col-span-3 col-span-6`} label={`Complemento`} />
