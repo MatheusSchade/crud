@@ -153,7 +153,7 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
     <div className='min-h-screen'>
       {isLoading ? <Loader /> :
         <Fragment>
-          <HeadContent title={`Registrar Pacientes - CRUD Medcloud`} />
+          <HeadContent title={`Registrar Pacientes - CRUD`} />
           <section>
             <PageHeadTitle text={title} />
             <h2 className='ml-1'>Insira abaixo os dados do paciente para registrá-lo em nosso banco de dados:</h2>

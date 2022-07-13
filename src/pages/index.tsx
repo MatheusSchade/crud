@@ -4,9 +4,9 @@ import RouteButtonButton from '../components/RouteButton'
 const Home: React.FC = () => {
   return (
     <div>
-      <HeadContent title={`Home - CRUD Medcloud`} />
+      <HeadContent title={`Home - CRUD`} />
       <h1 className='text-center mt-24 pageTitle font-bold'>
-        Bem vindo(a) ao CRUD Medcloud
+        Bem vindo(a) ao CRUD
       </h1>
       <h2 className='text-center mt-12 sm:w-1/2 w-full mx-auto text-xl font-semibold'>
         Registre um novo paciente no banco de dados ou visualize a lista com todos os clientes já registrados.</h2>

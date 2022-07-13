@@ -129,7 +129,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
     <div className='min-h-screen'>
       {isLoading ? <Loader /> :
         <Fragment>
-          <HeadContent title={`Gerenciar Pacientes - CRUD Medcloud`} />
+          <HeadContent title={`Gerenciar Pacientes - CRUD`} />
           <section>
             <PageHeadTitle text={`Gerenciar pacientes`} />
             {allPatients?.length > 0 ?

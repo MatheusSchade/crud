@@ -5,7 +5,7 @@ const LogoApp: React.FC = () => {
     <h1>
       <Link href="/">
         <a>
-          <span className={`logo`}>CRUD Medcloud</span>
+          <span className={`logo`}>CRUD</span>
         </a>
       </Link>
     </h1>
