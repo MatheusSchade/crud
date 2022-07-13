@@ -14,7 +14,7 @@ import { brazilianStates } from '../constants/brazilianStates'
 import checkState from '../services/checkState'
 import ModalEditTp from '../types/ModalEditTp'
 
-const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordionOpen }) => {
+const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordionOpen, size }) => {
   const { toaster } = useContext(GlobalStateContext)
   const [zipCodeData, setZipCodeData] = useState<ZipCode | null>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -87,7 +87,7 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       helperToEdit(form, id, zipCodeData)
       closeModal()
       clear()
-      setIsAccordionOpen(false)
+      size?.width <= 768 && setIsAccordionOpen(false)
     }
   }
 

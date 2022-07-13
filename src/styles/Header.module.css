@@ -8,7 +8,7 @@
 
 .navLinkSelected,
 .navLinks {
-  color: var(--baseThree);
+  color: var(--contrastStrong);
   font-weight: 700;
   margin: 0 10px;
   transition: all 200ms ease-in-out;
