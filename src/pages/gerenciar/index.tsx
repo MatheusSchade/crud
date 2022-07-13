@@ -26,7 +26,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
   const [zipToEdit, setZipToEdit] = useState(null)
   const [idToEdit, setIdToEdit] = useState(null)
   const [newFormToEdit, setNewFormToEdit] = useState(null)
-  const [itensPerPage, setItensPerPage] = useState<number>(5)
+  const [itensPerPage, setItensPerPage] = useState<number>(10)
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [typed, setTyped] = useState<string | null>(null)
   const [filteredPatients, setFilteredPatients] = useState<Form[] | null>(allPatients)

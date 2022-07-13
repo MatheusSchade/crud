@@ -61,12 +61,12 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       msg = `O campo "Número" aceita um máximo de 6 caracteres.`
     } else if (!zipCodeData?.bairro && form?.neighborhood?.length < 2) {
       msg = `Digite o bairro para prosseguir.`
-    } else if (form?.neighborhood?.length > 20) {
-      msg = `O campo "Bairro" aceita um máximo de 20 caracteres.`
+    } else if (form?.neighborhood?.length > 30) {
+      msg = `O campo "Bairro" aceita um máximo de 30 caracteres.`
     } else if (!zipCodeData?.localidade && form?.city?.length < 2) {
       msg = `Digite uma cidade válida para prosseguir.`
-    } else if (form?.city?.length > 20) {
-      msg = `O campo "Cidade" aceita um máximo de 20 caracteres.`
+    } else if (form?.city?.length > 25) {
+      msg = `O campo "Cidade" aceita um máximo de 25 caracteres.`
     } else if (!zipCodeData?.uf && !checkState(brazilianStates, form?.state?.toUpperCase())) {
       msg = "Selecione uma UF (estado) válida."
     } else {
@@ -87,6 +87,7 @@ const ModalEdit: React.FC<ModalEditTp> = ({ patient, helperToEdit, setIsAccordio
       helperToEdit(form, id, zipCodeData)
       closeModal()
       clear()
+      setIsAccordionOpen(false)
     }
   }
 

@@ -10,7 +10,6 @@ const SelectPagination: React.FC<SelectPaginationTp> = ({ itensPerPage, setItens
         <select id='itensPerPage' value={itensPerPage}
           className={`${styles.selectPagination} ml-2 w-10 font-semibold`}
           onChange={(e) => setItensPerPage(Number(e?.target?.value))}>
-          <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={50}>50</option>
