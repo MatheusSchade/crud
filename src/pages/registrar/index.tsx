@@ -108,13 +108,11 @@ const Register: React.FC<{ size: Size }> = ({ size }) => {
   }
 
   const helperZipCode = (event) => {
-    console.log("event.target.value", event?.target?.value)
     event?.target?.value?.length >= 8 && zipCode(event)
     saveInLocalStorage(event)
   }
 
   const zipCode = async (event) => {
-
     let zipCodeData = await getZipCode(filterZipCode(event?.target?.value))
     if (zipCodeData?.cep) {
       setZipCodeData(zipCodeData)
