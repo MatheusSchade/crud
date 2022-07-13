@@ -136,19 +136,8 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
               <div className='py-3 w-full'>
                 <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
                 {size?.width > 768 ?
-                  <PatientList currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
+                  <PatientList filteredPatients={filteredPatients} currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
                   : <PatientListMobile currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
-                }
-                {itensPerPage >= 10 && currentItens.length >= 9 &&
-                  <PaginationArea
-                    showFilter={false}
-                    helperCatchTyped={helperCatchTyped}
-                    itensPerPage={itensPerPage}
-                    setItensPerPage={setItensPerPage}
-                    currentPage={currentPage}
-                    allPatients={allPatients}
-                    pages={pages}
-                    setCurrentPage={setCurrentPage} />
                 }
               </div> :
               <NoRegistredPatients />

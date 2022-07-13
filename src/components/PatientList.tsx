@@ -4,7 +4,7 @@ import { Form } from "../types/Form"
 import PatientListTp from "../types/PatientListTp"
 import EachPatientLi from "./EachPatientLi"
 
-const PatientList: React.FC<PatientListTp> = ({ currentItens, helperToDelete, helperToEdit }) => {
+const PatientList: React.FC<PatientListTp> = ({ currentItens, helperToDelete, helperToEdit, filteredPatients }) => {
   const returnPatient = currentItens?.map((item: Form, index: number) => {
     return (
       <EachPatientLi helperToDelete={helperToDelete} helperToEdit={helperToEdit} key={index} patient={item} />
