@@ -3,6 +3,7 @@ import styles from "../styles/PatientList.module.css"
 import { Form } from "../types/Form"
 import PatientListTp from "../types/PatientListTp"
 import EachPatientLi from "./EachPatientLi"
+import NoResults from "./NoResults"
 
 const PatientList: React.FC<PatientListTp> = ({ currentItens, helperToDelete, helperToEdit, filteredPatients }) => {
   const returnPatient = currentItens?.map((item: Form, index: number) => {
@@ -23,7 +24,7 @@ const PatientList: React.FC<PatientListTp> = ({ currentItens, helperToDelete, he
             <th className={`col-span-3 my-auto`}>Endereço</th>
             <th className={`col-span-1 my-auto`}></th>
           </tr>
-          {returnPatient}
+          {filteredPatients?.length > 0 ? returnPatient : <NoResults />}
         </tbody>
       </table>
     </Fragment>

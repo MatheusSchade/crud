@@ -88,6 +88,10 @@ input[type="number"] {
 
 /* colors */
 
+.baseOneText {
+  color: var(--baseOne);
+}
+
 .baseFourText {
   color: var(--baseFour);
 }

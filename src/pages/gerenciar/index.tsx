@@ -137,7 +137,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
                 <PaginationArea showFilter={true} helperCatchTyped={helperCatchTyped} itensPerPage={itensPerPage} setItensPerPage={setItensPerPage} currentPage={currentPage} allPatients={allPatients} pages={pages} setCurrentPage={setCurrentPage} />
                 {size?.width > 768 ?
                   <PatientList filteredPatients={filteredPatients} currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
-                  : <PatientListMobile currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
+                  : <PatientListMobile filteredPatients={filteredPatients} currentItens={currentItens} helperToDelete={helperToDelete} helperToEdit={helperToEdit} />
                 }
               </div> :
               <NoRegistredPatients />
