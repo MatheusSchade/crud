@@ -13,7 +13,6 @@ const PatientListMobile: React.FC<PatientListMobileTp> = ({ currentItens, helper
 
   return (
     <Fragment>
-      {/* {patientList} */}
       {filteredPatients?.length > 0 ? patientList : <NoResults />}
     </Fragment>
   )

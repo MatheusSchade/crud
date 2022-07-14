@@ -27,7 +27,6 @@
   font-family: "Open-Sans-Bold", sans-serif;
   color: var(--baseOne);
   text-align: left;
-  word-break: break-all;
 }
 
 .isOpenArea {

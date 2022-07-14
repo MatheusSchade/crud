@@ -3,8 +3,8 @@ const getLocalStorageValues = (key: string) => {
   let valueToReturn = ""
   if (dataStorage) {
     dataStorage?.filter((item) => {
-      if (item?.key === key && item.value) {
-        valueToReturn = item.value
+      if (item?.key === key && item?.value) {
+        valueToReturn = item?.value
       }
     })
   }
