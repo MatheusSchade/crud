@@ -96,7 +96,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
 
   useEffect(() => {
     idToEdit && responseWhenEdit()
-    idToDelete && setIsLoading(true)
+    idToEdit && setIsLoading(true)
     idToEdit && setTimeout(() => {
       getAllPatients()
       setFormToEdit(null)
@@ -105,7 +105,7 @@ const Manage: React.FC<{ size: Size }> = ({ size }) => {
       setNewFormToEdit(null)
       setIsLoading(false)
     }, 1000)
-  }, [idToEdit, formToEdit, zipToEdit, idToDelete, getAllPatients, responseWhenEdit])
+  }, [idToEdit, formToEdit, zipToEdit, getAllPatients, responseWhenEdit])
 
   useLayoutEffect(() => {
     setCurrentPage(0)
